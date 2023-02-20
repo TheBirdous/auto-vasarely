@@ -1,22 +1,31 @@
-from enum import Enum
+from enum import Enum, auto
 
 
 class State(Enum):
     # Find new beginning states
-    Q0 = 1
-    Q1 = 2
-    Qa = 3
-    Qr = 4
+    Q0 = auto()
+    Q1 = auto()
+    Qa = auto()
+    Qr = auto()
 
     # Fill down states
-    D0 = 5
-    D1 = 6
-    D2 = 7
-    D3 = 8
-    D4 = 9
-    D5 = 10
-    D6 = 11
-    D7 = 12
-    D8 = 13
-    Da = 14
-    Dr = 15
+    D0 = auto()
+    D1 = auto()
+    D2 = auto()
+    D3 = auto()
+    D4 = auto()
+    D5 = auto()
+    D6 = auto()
+    D7 = auto()
+    D8 = auto()
+    Da = auto()
+    Dr = auto()
+
+    # Fill up states
+    U0 = auto()
+    U1 = auto()
+    U2 = auto()
+    U3 = auto()
+    U4 = auto()
+    Ua = auto()
+    Ur = auto()

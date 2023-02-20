@@ -60,13 +60,40 @@ def test_fill_3():
     cv2.imwrite("../resources/fill_test3.out.png", grid)
 
 
+def test_fill_up_1():
+    grid = parser.img_to_grid("../resources/fill_test_up1.png")
+    # Ensure F_B
+    grid[2][6] = 100
+    fill_buffer = []
+    state, row, col, fill_buffer = recognition._fill_up_(grid, 23, 10, fill_buffer)
+    grid = recognition._apply_buffer_(grid, fill_buffer)
+
+    cv2.imwrite("../resources/fill_test_up1.out.png", grid)
+
+
+def test_fill_up_2():
+    grid = parser.img_to_grid("../resources/fill_test_up2.png")
+    # Ensure F_B
+    grid[2][6] = 100
+    fill_buffer = []
+    state, row, col, fill_buffer = recognition._fill_up_(grid, 23, 10, fill_buffer)
+    grid = recognition._apply_buffer_(grid, fill_buffer)
+
+    cv2.imwrite("../resources/fill_test_up2.out.png", grid)
+
+
 if __name__ == "__main__":
     test_begin_0()
     test_begin_1()
     test_begin_2()
 
+    # Fill down
     test_fill_1()
     test_fill_2()
     test_fill_3()
+
+    # Fill up
+    test_fill_up_1()
+    test_fill_up_2()
     print("Tests passed.")
 

@@ -54,8 +54,7 @@ def _find_new_beginning_(grid, start_row, start_col):
 
 def _apply_buffer_(grid, fill_buffer):
     """ Applies the buffer of changes to the grid. """
-    for coord in fill_buffer:
-        row, col = coord
+    for row, col in fill_buffer:
         grid[row][col] = Alphabet.FILL.value
     return grid
 
@@ -142,14 +141,100 @@ def _fill_down_(grid, start_row, start_col, fill_buffer):
     return state, row, col, fill_buffer
 
 
-def _fill_up_(grid, fill_buffer):
+def _fill_up_(grid, start_row, start_col, fill_buffer):
     """ Fills tile up based on input grid. Returns modified fill buffer, and end position. """
-    pass
+    row = start_row
+    col = start_col
+    state = State.U0
+
+    while True:
+        # BEGIN FILL DOWN AUTOMATON
+        if state == State.U0:
+            if grid[row][col] == Alphabet.EMPTY.value:
+                state = State.U0
+                # Move left
+                col -= 1
+            elif grid[row][col] == Alphabet.FILL_BEGIN.value:
+                state = State.Ua
+            else:
+                state = State.U1
+                # Move right
+                col += 1
+        elif state == State.U1:
+            state = State.U2
+            # Move up
+            row -= 1
+        elif state == State.U2:
+            if grid[row][col] == Alphabet.EMPTY.value:
+                state = State.U0
+                # Move left
+                col -= 1
+            elif grid[row][col] == Alphabet.FILL_BEGIN.value:
+                state = State.Ua
+            else:
+                state = State.U3
+                # Move down
+                row += 1
+        elif state == State.U3:
+            state = State.U4
+            # Move right
+            col += 1
+        elif state == State.U4:
+            state = State.U2
+            # Move up
+            row -= 1
+        else:
+            break
+        # END OF AUTOMATON
+
+        # Add empty cell to buffer
+        if grid[row][col] == Alphabet.EMPTY.value:
+            fill_buffer.append((row, col))
+        # End of loop
+    return state, row, col, fill_buffer
 
 
-def _find_new_fill_beginning_(grid, start_pos):
+def _find_new_fill_beginning_(grid, start_row, start_col):
     """ Finds new fill beginning (F_B) based on grid and current position """
-    pass
+    """ Finds the beginning of a new tile based on a grid and current position. """
+    row = start_row
+    col = start_col
+    state = State.Q0
+
+    # TODO: Maybe delete this check
+    x_size, y_size = np.shape(grid)
+
+    if row >= (x_size - 1) or col >= (y_size - 1):
+        raise Exception('Recognition out of grid bounds!')
+
+    while True:
+        # State Q0
+        if state == State.Q0:
+            # Value E
+            if grid[row][col] == Alphabet.EMPTY.value:
+                state = State.Qa
+            # Value #
+            elif grid[row][col] == Alphabet.IMG_BORDER.value:
+                state = State.Q1
+                # Jump to next row
+                row += 1
+                col = 1
+            else:
+                state = State.Q0
+                # Move right
+                col += 1
+        # State Q1
+        elif state == State.Q1:
+            # Value #
+            if grid[row][col] == Alphabet.IMG_BORDER.value:
+                state = State.Qr
+            else:
+                state = State.Q0
+        # State Qr or Qa
+        else:
+            break
+
+    return state, row, col
 
 
 def _fill_tile_(grid, curr_tile):
