@@ -2,11 +2,12 @@ import parser, recognition
 from states import State
 import cv2
 
+
 def test_begin_0():
     grid = parser.img_to_grid("../resources/test_new_begin.png")
     state, row, col = recognition._find_new_beginning_(grid, 0, 0)
 
-    assert state == State.Qa
+    assert state == State.Sa
     assert row == 1
     assert col == 1
 
@@ -15,7 +16,7 @@ def test_begin_1():
     grid = parser.img_to_grid("../resources/test_new_begin_1.png")
     state, row, col = recognition._find_new_beginning_(grid, 0, 0)
 
-    assert state == State.Qa
+    assert state == State.Sa
     assert row == 7
     assert col == 22
 
@@ -24,7 +25,7 @@ def test_begin_2():
     grid = parser.img_to_grid("../resources/test_new_begin_2.png")
     state, row, col = recognition._find_new_beginning_(grid, 0, 0)
 
-    assert state == State.Qr
+    assert state == State.Sr
 
 
 def test_fill_1():
@@ -82,6 +83,42 @@ def test_fill_up_2():
     cv2.imwrite("../resources/fill_test_up2.out.png", grid)
 
 
+def test_new_fill_begin_1():
+    grid = cv2.imread("../resources/test_new_fill_begin1.png", cv2.IMREAD_GRAYSCALE)
+
+    state, row, col = recognition._find_new_fill_beginning_(grid, 2, 6)
+
+    assert state == State.Na
+    assert row == 3
+    assert col == 7
+
+    cv2.imwrite("../resources/test_new_fill_begin1.out.png", grid)
+
+
+def test_new_fill_begin_2():
+    grid = cv2.imread("../resources/test_new_fill_begin2.png", cv2.IMREAD_GRAYSCALE)
+
+    state, row, col = recognition._find_new_fill_beginning_(grid, 11, 9)
+
+    assert state == State.Na
+    assert row == 12
+    assert col == 9
+
+    cv2.imwrite("../resources/test_new_fill_begin2.out.png", grid)
+
+
+def test_new_fill_begin_3():
+    grid = cv2.imread("../resources/test_new_fill_begin3.png", cv2.IMREAD_GRAYSCALE)
+
+    state, row, col = recognition._find_new_fill_beginning_(grid, 11, 9)
+
+    assert state == State.Nr
+    assert row == 23
+    assert col == 10
+
+    cv2.imwrite("../resources/test_new_fill_begin3.out.png", grid)
+
+
 if __name__ == "__main__":
     test_begin_0()
     test_begin_1()
@@ -95,5 +132,10 @@ if __name__ == "__main__":
     # Fill up
     test_fill_up_1()
     test_fill_up_2()
+
+    # New fill begin
+    test_new_fill_begin_1()
+    test_new_fill_begin_2()
+    test_new_fill_begin_3()
     print("Tests passed.")
 

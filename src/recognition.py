@@ -12,7 +12,7 @@ def _find_new_beginning_(grid, start_row, start_col):
     """ Finds the beginning of a new tile based on a grid and current position. """
     row = start_row
     col = start_col
-    state = State.Q0
+    state = State.S0
 
     # TODO: Maybe delete this check
     x_size, y_size = np.shape(grid)
@@ -21,31 +21,35 @@ def _find_new_beginning_(grid, start_row, start_col):
         raise Exception('Recognition out of grid bounds!')
 
     while True:
-        # State Q0
-        if state == State.Q0:
+        # State S0
+        if state == State.S0:
             # Value E
             if grid[row][col] == Alphabet.EMPTY.value:
-                state = State.Qa
+                state = State.Sa
             # Value #
             elif grid[row][col] == Alphabet.IMG_BORDER.value:
-                state = State.Q1
+                state = State.S1
                 # Jump to next row
                 row += 1
                 col = 1
             else:
-                state = State.Q0
+                state = State.S0
                 # Move right
                 col += 1
-        # State Q1
-        elif state == State.Q1:
+        # State S1
+        elif state == State.S1:
             # Value #
             if grid[row][col] == Alphabet.IMG_BORDER.value:
-                state = State.Qr
+                state = State.Sr
             else:
-                state = State.Q0
-        # State Qr or Qa
+                state = State.S0
+        # State Sr or Sa
         else:
             break
+
+    if state == State.Sa:
+        # Place new fill beginning
+        grid[row][col] = Alphabet.FILL_BEGIN.value
 
     return state, row, col
 
@@ -191,48 +195,77 @@ def _fill_up_(grid, start_row, start_col, fill_buffer):
         if grid[row][col] == Alphabet.EMPTY.value:
             fill_buffer.append((row, col))
         # End of loop
+    # TODO: Maybe add a timeout or a rejecting state
     return state, row, col, fill_buffer
 
 
 def _find_new_fill_beginning_(grid, start_row, start_col):
     """ Finds new fill beginning (F_B) based on grid and current position """
-    """ Finds the beginning of a new tile based on a grid and current position. """
     row = start_row
     col = start_col
-    state = State.Q0
-
-    # TODO: Maybe delete this check
-    x_size, y_size = np.shape(grid)
-
-    if row >= (x_size - 1) or col >= (y_size - 1):
-        raise Exception('Recognition out of grid bounds!')
+    state = State.N0
 
     while True:
-        # State Q0
-        if state == State.Q0:
-            # Value E
-            if grid[row][col] == Alphabet.EMPTY.value:
-                state = State.Qa
-            # Value #
-            elif grid[row][col] == Alphabet.IMG_BORDER.value:
-                state = State.Q1
-                # Jump to next row
-                row += 1
-                col = 1
-            else:
-                state = State.Q0
+        if state == State.N0:
+            if grid[row][col] == Alphabet.FILL_BEGIN.value:
+                state = State.N1
                 # Move right
                 col += 1
-        # State Q1
-        elif state == State.Q1:
-            # Value #
-            if grid[row][col] == Alphabet.IMG_BORDER.value:
-                state = State.Qr
+        elif state == State.N1:
+            if grid[row][col] == Alphabet.FILL.value:
+                state = State.N1
+                # Move right
+                col += 1
+            elif grid[row][col] == Alphabet.EMPTY.value:
+                state = State.Na
             else:
-                state = State.Q0
-        # State Qr or Qa
+                state = State.N2
+                # Move left
+                col -= 1
+        elif state == State.N2:
+            state = State.N3
+            # Move down
+            row += 1
+        elif state == State.N3:
+            if (grid[row][col] == Alphabet.EMPTY.value
+                    or grid[row][col] == Alphabet.FILL.value):
+                state = State.N6
+                # Move left
+                col -= 1
+            else:
+                state = State.N4
+                # Move up
+                row -= 1
+        elif state == State.N4:
+            state = State.N5
+            # Move left
+            col -= 1
+        elif state == State.N5:
+            if (grid[row][col] == Alphabet.TILE_BORDER.value
+                    or grid[row][col] == Alphabet.IMG_BORDER.value):
+                state = State.Nr
+                # Move right
+                col += 1
+            else:
+                state = State.N3
+                # Move down
+                row += 1
+        elif state == State.N6:
+            if (grid[row][col] == Alphabet.EMPTY.value
+                    or grid[row][col] == Alphabet.FILL.value):
+                state = State.N6
+                # Move left
+                col -= 1
+            else:
+                state = State.N1
+                # Move right
+                col += 1
         else:
             break
+
+    if state == State.Na:
+        # Place new fill beginning
+        grid[row][col] = Alphabet.FILL_BEGIN.value
 
     return state, row, col
 
@@ -242,4 +275,3 @@ def _fill_tile_(grid, curr_tile):
         inserts a new tile into the tile array.
     """
     pass
-
