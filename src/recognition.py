@@ -270,8 +270,30 @@ def _find_new_fill_beginning_(grid, start_row, start_col):
     return state, row, col
 
 
-def _fill_tile_(grid, curr_tile):
+def _fill_tile_(grid, start_row, start_col):
     """ Fills the current tile, returns modified grid with filled tile and
         inserts a new tile into the tile array.
     """
-    pass
+    row = start_row
+    col = start_col
+    state = 0
+    fill_buffer = []
+
+    while True:
+        # Clear buffer
+        fill_buffer = []
+        # Fill down
+        state, row, col, fill_buffer = _fill_down_(grid, row, col, fill_buffer)
+        # This F_B is the last one, nothing is left to fill
+        if state == State.Da:
+            # Fill up
+            state, row, col, fill_buffer = _fill_up_(grid, row, col, fill_buffer)
+        # Apply buffer
+        grid = _apply_buffer_(grid, fill_buffer)
+        # Find new F_B
+        state, row, col = _find_new_fill_beginning_(grid, row, col)
+        if state == State.Nr:
+            break
+
+    return grid
+

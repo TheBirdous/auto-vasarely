@@ -119,6 +119,50 @@ def test_new_fill_begin_3():
     cv2.imwrite("../resources/test_new_fill_begin3.out.png", grid)
 
 
+def test_whole_fill1():
+    grid = parser.img_to_grid("../resources/fill_test1.png")
+
+    # Ensure F_B
+    grid[1][1] = 100
+
+    grid = recognition._fill_tile_(grid, 1, 1)
+
+    cv2.imwrite("../resources/test_whole_fill1.png", grid)
+
+
+def test_whole_fill2():
+    grid = parser.img_to_grid("../resources/fill_test3.png")
+
+    # Ensure F_B
+    grid[1][1] = 100
+
+    grid = recognition._fill_tile_(grid, 1, 1)
+
+    cv2.imwrite("../resources/test_whole_fill2.png", grid)
+
+
+def test_whole_fill3():
+    grid = parser.img_to_grid("../resources/fill_test_up2.png")
+
+    # Ensure F_B
+    grid[2][6] = 100
+
+    grid = recognition._fill_tile_(grid, 2, 6)
+
+    cv2.imwrite("../resources/test_whole_fill3.png", grid)
+
+
+def test_whole_fill4():
+    grid = parser.img_to_grid("../resources/fill_test_up1.png")
+
+    # Ensure F_B
+    grid[2][6] = 100
+
+    grid = recognition._fill_tile_(grid, 2, 6)
+
+    cv2.imwrite("../resources/test_whole_fill4.png", grid)
+
+
 if __name__ == "__main__":
     test_begin_0()
     test_begin_1()
@@ -137,5 +181,11 @@ if __name__ == "__main__":
     test_new_fill_begin_1()
     test_new_fill_begin_2()
     test_new_fill_begin_3()
+
+    # Whole fill test
+    test_whole_fill1()
+    test_whole_fill2()
+    test_whole_fill3()
+    test_whole_fill4()
     print("Tests passed.")
 
