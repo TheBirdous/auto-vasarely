@@ -127,7 +127,7 @@ def test_whole_fill1():
 
     grid = recognition._fill_tile_(grid, 1, 1)
 
-    cv2.imwrite("../resources/test_whole_fill1.png", grid)
+    cv2.imwrite("../resources/test_whole_fill1.out.png", grid)
 
 
 def test_whole_fill2():
@@ -138,7 +138,7 @@ def test_whole_fill2():
 
     grid = recognition._fill_tile_(grid, 1, 1)
 
-    cv2.imwrite("../resources/test_whole_fill2.png", grid)
+    cv2.imwrite("../resources/test_whole_fill2.out.png", grid)
 
 
 def test_whole_fill3():
@@ -149,7 +149,7 @@ def test_whole_fill3():
 
     grid = recognition._fill_tile_(grid, 2, 6)
 
-    cv2.imwrite("../resources/test_whole_fill3.png", grid)
+    cv2.imwrite("../resources/test_whole_fill3.out.png", grid)
 
 
 def test_whole_fill4():
@@ -160,7 +160,23 @@ def test_whole_fill4():
 
     grid = recognition._fill_tile_(grid, 2, 6)
 
-    cv2.imwrite("../resources/test_whole_fill4.png", grid)
+    cv2.imwrite("../resources/test_whole_fill4.out.png", grid)
+
+
+def test_tile_recog1():
+    grid = parser.img_to_grid("../resources/test_new_begin.png")
+
+    grid = recognition.recognize_tiles(grid)
+
+    cv2.imwrite("../resources/test_tile_recog1.out.png", grid)
+
+
+def test_tile_recog2():
+    grid = parser.img_to_grid("../resources/test_grid.png")
+
+    grid = recognition.recognize_tiles(grid)
+
+    cv2.imwrite("../resources/test_tile_recog2.out.png", grid)
 
 
 if __name__ == "__main__":
@@ -187,5 +203,9 @@ if __name__ == "__main__":
     test_whole_fill2()
     test_whole_fill3()
     test_whole_fill4()
+
+    # Tile recognition test
+    test_tile_recog1()
+    test_tile_recog2()
     print("Tests passed.")
 

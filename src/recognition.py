@@ -5,7 +5,15 @@ from alphabet import Alphabet
 
 def recognize_tiles(grid):
     """ Recognizes tiles from an input grid and returns them as a 2D array. """
-    pass
+    state = State.S0
+    row = 1
+    col = 1
+    while True:
+        state, row, col = _find_new_beginning_(grid, row, col)
+        if state == State.Sr:
+            break
+        grid = _fill_tile_(grid, row, col)
+    return grid
 
 
 def _find_new_beginning_(grid, start_row, start_col):
