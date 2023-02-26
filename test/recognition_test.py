@@ -179,6 +179,30 @@ def test_tile_recog2():
     cv2.imwrite("../resources/test_tile_recog2.out.png", grid)
 
 
+def test_triangles():
+    grid = parser.img_to_grid("../resources/triangles.jpg", threshold=170)
+
+    grid = recognition.recognize_tiles(grid)
+
+    cv2.imwrite("../resources/triangles.out.jpg", grid)
+
+
+def test_hexagons():
+    grid = parser.img_to_grid("../resources/hexagons.png")
+
+    grid = recognition.recognize_tiles(grid)
+
+    cv2.imwrite("../resources/hexagons.out.png", grid)
+
+
+def test_triangles_and_squares():
+    grid = parser.img_to_grid("../resources/triangles_and_squares.png")
+
+    grid = recognition.recognize_tiles(grid)
+
+    cv2.imwrite("../resources/triangles_and_squares.out.png", grid)
+
+
 if __name__ == "__main__":
     test_begin_0()
     test_begin_1()
@@ -205,7 +229,10 @@ if __name__ == "__main__":
     test_whole_fill4()
 
     # Tile recognition test
-    test_tile_recog1()
-    test_tile_recog2()
+    # test_tile_recog1()
+    # test_tile_recog2()
+    # test_triangles()
+    # test_hexagons()
+    test_triangles_and_squares()
     print("Tests passed.")
 

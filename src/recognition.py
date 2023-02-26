@@ -13,6 +13,11 @@ def recognize_tiles(grid):
         if state == State.Sr:
             break
         grid = _fill_tile_(grid, row, col)
+        # try:
+        #     grid = _fill_tile_(grid, row, col)
+        # except:
+        #     print("Index out of bounds in automaton")
+        #     break
     return grid
 
 
