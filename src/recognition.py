@@ -1,24 +1,27 @@
 import numpy as np
 from states import State
 from alphabet import Alphabet
+from tiles import Tile, TileGrid
 
 
-def recognize_tiles(grid):
+def recognize_tiles(grid, num_of_tiles_on_rows):
     """ Recognizes tiles from an input grid and returns them as a 2D array. """
+    tile_grid = TileGrid()
+    tile_num = 1
     state = State.S0
     row = 1
     col = 1
     while True:
+        tile = Tile()
         state, row, col = _find_new_beginning_(grid, row, col)
         if state == State.Sr:
             break
-        grid = _fill_tile_(grid, row, col)
-        # try:
-        #     grid = _fill_tile_(grid, row, col)
-        # except:
-        #     print("Index out of bounds in automaton")
-        #     break
-    return grid
+        grid = _fill_tile_(grid, row, col, tile)
+        tile_grid.add_tile(tile, tile_num, num_of_tiles_on_rows)
+        tile_num += 1
+
+    tile_grid.sort_tiles()
+    return tile_grid
 
 
 def _find_new_beginning_(grid, start_row, start_col):
@@ -73,6 +76,10 @@ def _apply_buffer_(grid, fill_buffer):
     """ Applies the buffer of changes to the grid. """
     for row, col in fill_buffer:
         grid[row][col] = Alphabet.FILL.value
+    # Place F_B
+    if len(fill_buffer) > 0:
+        row, col = fill_buffer[0]
+        grid[row][col] = Alphabet.FILL_BEGIN.value
     return grid
 
 
@@ -283,18 +290,16 @@ def _find_new_fill_beginning_(grid, start_row, start_col):
     return state, row, col
 
 
-def _fill_tile_(grid, start_row, start_col):
+def _fill_tile_(grid, start_row, start_col, tile):
     """ Fills the current tile, returns modified grid with filled tile and
         inserts a new tile into the tile array.
     """
     row = start_row
     col = start_col
-    state = 0
-    fill_buffer = []
 
     while True:
-        # Clear buffer
-        fill_buffer = []
+        # Init buffer with F_B
+        fill_buffer = [(row, col)]
         # Fill down
         state, row, col, fill_buffer = _fill_down_(grid, row, col, fill_buffer)
         # This F_B is the last one, nothing is left to fill
@@ -305,6 +310,8 @@ def _fill_tile_(grid, start_row, start_col):
         grid = _apply_buffer_(grid, fill_buffer)
         # Find new F_B
         state, row, col = _find_new_fill_beginning_(grid, row, col)
+        # Add buffer as a tile layer
+        tile.add_fill_layer(fill_buffer)
         if state == State.Nr:
             break
 
