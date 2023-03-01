@@ -1,6 +1,5 @@
 import parser
 import recognition
-import cv2
 
 
 def test_tile_recog1():
@@ -8,7 +7,6 @@ def test_tile_recog1():
 
     tile_grid = recognition.recognize_tiles(grid, [3])
 
-    cv2.imwrite("../resources/tile_insert_test.out.png", grid)
     print(tile_grid)
 
 
@@ -17,7 +15,6 @@ def test_tile_recog2():
 
     tile_grid = recognition.recognize_tiles(grid, [8])
 
-    cv2.imwrite("../resources/tile_insert_test2.out.png", grid)
     print(tile_grid)
 
 
@@ -26,11 +23,19 @@ def test_tile_recog3():
 
     tile_grid = recognition.recognize_tiles(grid, [14, 28])
 
-    cv2.imwrite("../resources/test_tile_recog3.out.png", grid)
+    print(tile_grid)
+
+
+def test_tile_recog4():
+    grid = parser.img_to_grid("../resources/hexagons.png")
+
+    tile_grid = recognition.recognize_tiles(grid, [17])
+
     print(tile_grid)
 
 
 if __name__ == '__main__':
     # test_tile_recog1()
     # test_tile_recog2()
-    test_tile_recog3()
+    # test_tile_recog3()
+    test_tile_recog4()
