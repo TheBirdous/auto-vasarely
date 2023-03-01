@@ -1,20 +1,16 @@
 import numpy as np
+from shapes import Shape, Shapes
 
 
 class Tile:
     def __init__(self, fill_layers=None,
-                 background_color=(255, 0, 0),
-                 inner_shape_color=(120, 0, 0),
-                 shape_size=10,
-                 shape_type=0):
+                 color=(255, 0, 0),
+                 shape=Shape()):
         if fill_layers is None:
             fill_layers = []
         self.fill_layers = fill_layers
-        # TODO: Need to find out how to save color
-        self.background_color = background_color
-        self.inner_shape_color = inner_shape_color
-        self.shape_size = shape_size
-        self.shape_type = shape_type
+        self.color = color
+        self.shape = shape
 
     def add_fill_layer(self, fill_layer):
         self.fill_layers.append(fill_layer)
@@ -60,14 +56,36 @@ class TileGrid:
         out_img = np.zeros((height, width, 3), np.uint8)
         for row in self.grid:
             for tile in row:
-                # If shape type == inner fill
-                for layer_idx, fill_layer in enumerate(tile.fill_layers):
-                    if layer_idx >= len(tile.fill_layers) - tile.shape_size:
+                if tile.shape.type == Shapes.CONTOUR:
+                    for layer_idx, fill_layer in enumerate(tile.fill_layers):
                         for pixel_row, pixel_col in fill_layer:
-                            out_img[pixel_row][pixel_col] = tile.inner_shape_color
-                    else:
+                            if layer_idx >= len(tile.fill_layers) - tile.shape.size:
+                                out_img[pixel_row][pixel_col] = tile.shape.color
+                            else:
+                                out_img[pixel_row][pixel_col] = tile.color
+                else:
+                    tile_max_row = 0
+                    tile_max_col = 0
+                    tile_min_row = height
+                    tile_min_col = width
+                    for fill_layer in tile.fill_layers:
                         for pixel_row, pixel_col in fill_layer:
-                            out_img[pixel_row][pixel_col] = tile.background_color
+                            if pixel_row > tile_max_row:
+                                tile_max_row = pixel_row
+                            if pixel_col > tile_max_col:
+                                tile_max_col = pixel_col
+
+                            if pixel_row < tile_min_row:
+                                tile_min_row = pixel_row
+                            if pixel_col < tile_min_col:
+                                tile_min_col = pixel_col
+
+                            out_img[pixel_row][pixel_col] = tile.color
+                    tile.shape.draw(grid,
+                                    out_img,
+                                    tile.fill_layers[-1][-1],
+                                    (tile_min_row, tile_min_col),
+                                    (tile_max_row, tile_max_col))
         # Remove # borders
         out_img = out_img[1:-1, 1:-1]
         return out_img

@@ -28,7 +28,7 @@ def _resize_img_(img):
             divisor = width / MAX_SIZE
             width = MAX_SIZE
             height = int(height / divisor)
-
+        # TODO: Figure out interpolation
         img = cv2.resize(img, (width, height))
 
     return img
