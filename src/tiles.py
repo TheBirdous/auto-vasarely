@@ -1,19 +1,27 @@
 import numpy as np
 from shapes import Shape, Shapes
+import random
 
 
 class Tile:
     def __init__(self, fill_layers=None,
                  color=(255, 0, 0),
-                 shape=Shape()):
+                 shape=None,
+                 size=5):
         if fill_layers is None:
             fill_layers = []
         self.fill_layers = fill_layers
         self.color = color
+        if shape is None:
+            shape = Shape()
         self.shape = shape
+        self.size = size
 
     def add_fill_layer(self, fill_layer):
         self.fill_layers.append(fill_layer)
+
+    def set_size(self):
+        self.size = len(self.fill_layers)
 
     def __str__(self):
         return str(self.fill_layers[0][0])
@@ -50,6 +58,27 @@ class TileGrid:
 
         for row in self.grid:
             row.sort(key=get_key)
+
+    def init_tile_attributes(self, colors, shapes):
+        for row in self.grid:
+            for tile in row:
+                tile_color_rand = random.random()
+                shape_color_rand = random.random()
+                for color, occurrence in colors:
+                    if tile_color_rand < occurrence:
+                        tile.color = color
+                        break
+                for color, occurrence in colors:
+                    if shape_color_rand < occurrence and color != tile.color:
+                        tile.shape.color = color
+                        break
+                shape_rand = tile_color_rand * len(shapes)
+                for shape in shapes:
+                    if shape_rand < shape.value:
+                        tile.shape.type = shape
+                        break
+                shape_size_rand = int(tile_color_rand * tile.size)
+                tile.shape.size = shape_size_rand
 
     def to_image(self, grid):
         height, width = grid.shape

@@ -17,6 +17,7 @@ def recognize_tiles(grid, num_of_tiles_on_rows):
         if state == State.Sr:
             break
         grid = _fill_tile_(grid, row, col, tile)
+        tile.set_size()
         tile_grid.add_tile(tile, tile_num, num_of_tiles_on_rows)
         tile_num += 1
 

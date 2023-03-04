@@ -4,11 +4,11 @@ import numpy as np
 
 
 class Shapes(Enum):
-    TRIANGLE_UP = auto()
-    TRIANGLE_DOWN = auto()
-    SQUARE = auto()
-    SQUARE_45DEG = auto()
-    CONTOUR = auto()
+    TRIANGLE_UP = 1
+    TRIANGLE_DOWN = 2
+    SQUARE = 3
+    SQUARE_45DEG = 4
+    CONTOUR = 5
 
 
 class Shape:
