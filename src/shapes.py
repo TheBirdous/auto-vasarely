@@ -23,6 +23,26 @@ class Shape:
         self.size = size
         self.type = type
 
+    def _pick_neighbourhood_(self, center_row, center_col):
+        if self.type is Shapes.SQUARE_45DEG:
+            return [(center_row, center_col + 1), (center_row, center_col - 1),
+                    (center_row + 1, center_col), (center_row - 1, center_col)]
+        if self.type is Shapes.SQUARE:
+            return [(center_row, center_col + 1), (center_row, center_col - 1),
+                    (center_row + 1, center_col), (center_row - 1, center_col),
+                    (center_row + 1, center_col + 1), (center_row - 1, center_col + 1),
+                    (center_row - 1, center_col - 1), (center_row + 1, center_col - 1)]
+        if self.type is Shapes.TRIANGLE_UP:
+            return [(center_row, center_col + 1), (center_row, center_col - 1),
+                    (center_row + 1, center_col), (center_row - 1, center_col),
+                    (center_row + 1, center_col + 1), (center_row + 1, center_col + 2),
+                    (center_row + 1, center_col - 2), (center_row + 1, center_col - 1)]
+        if self.type is Shapes.TRIANGLE_DOWN:
+            return [(center_row, center_col + 1), (center_row, center_col - 1),
+                    (center_row + 1, center_col), (center_row - 1, center_col),
+                    (center_row - 1, center_col + 1), (center_row - 1, center_col + 2),
+                    (center_row - 1, center_col - 2), (center_row - 1, center_col - 1)]
+
     def draw(self, grid, out_img, start, tile_min, tile_max):
         grid_copy = np.copy(grid)
         buffer = []
@@ -39,8 +59,7 @@ class Shape:
                 for col in range(tile_min_col, tile_max_col + 1):
                     if grid_copy[row][col] == Alphabet.SHAPE.value:
                         # Test with square 45Deg
-                        neighbourhood = [(row, col + 1), (row, col - 1),
-                                         (row + 1, col), (row - 1, col)]
+                        neighbourhood = self._pick_neighbourhood_(row, col)
                         try:
                             for neigh_row, neigh_col in neighbourhood:
                                 if (grid_copy[neigh_row][neigh_col] == Alphabet.IMG_BORDER.value or

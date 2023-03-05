@@ -29,7 +29,7 @@ def test_rand_fill1():
 
     tile_grid = recognition.recognize_tiles(grid, [3])
     colors = palette.img_to_palette("../resources/colors/MAJUS.jpg")
-    shape_list = [shapes.Shapes.CONTOUR]
+    shape_list = [shapes.Shapes.TRIANGLE_UP, shapes.Shapes.TRIANGLE_DOWN, shapes.Shapes.SQUARE_45DEG, shapes.Shapes.SQUARE]
     tile_grid.init_tile_attributes(colors, shape_list)
     out_img = tile_grid.to_image(grid)
     print(tile_grid)
@@ -41,7 +41,8 @@ def test_rand_fill2():
 
     tile_grid = recognition.recognize_tiles(grid, [17])
     colors = palette.img_to_palette("../resources/colors/MAJUS.jpg")
-    shape_list = [shapes.Shapes.CONTOUR]
+    shape_list = [shapes.Shapes.TRIANGLE_UP, shapes.Shapes.TRIANGLE_DOWN, shapes.Shapes.SQUARE_45DEG,
+                  shapes.Shapes.SQUARE]
     tile_grid.init_tile_attributes(colors, shape_list)
     out_img = tile_grid.to_image(grid)
     print(tile_grid)

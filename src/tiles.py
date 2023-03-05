@@ -1,6 +1,7 @@
 import numpy as np
 from shapes import Shape, Shapes
 import random
+from alphabet import Alphabet
 
 
 class Tile:
@@ -72,13 +73,28 @@ class TileGrid:
                     if shape_color_rand < occurrence and color != tile.color:
                         tile.shape.color = color
                         break
-                shape_rand = tile_color_rand * len(shapes)
-                for shape in shapes:
-                    if shape_rand < shape.value:
-                        tile.shape.type = shape
-                        break
-                shape_size_rand = int(tile_color_rand * tile.size)
-                tile.shape.size = shape_size_rand
+                tile.shape.type = shapes[random.randint(0, len(shapes) - 1)]
+                tile.shape.size = random.randint(1, tile.size)
+
+    @staticmethod
+    def _extend_tile_into_borders_(grid, out_img):
+        found_border = True
+        while found_border:
+            found_border = False
+            buffer = []
+            for row, row_value in enumerate(grid):
+                for col, col_value in enumerate(row_value):
+                    if (grid[row][col] != Alphabet.TILE_BORDER.value
+                            and grid[row][col] != Alphabet.IMG_BORDER.value):
+                        neighbourhood = [(row, col + 1), (row, col - 1),
+                                         (row + 1, col), (row - 1, col)]
+                        for neigh_row, neigh_col in neighbourhood:
+                            if grid[neigh_row][neigh_col] == Alphabet.TILE_BORDER.value:
+                                found_border = True
+                                buffer.append(((neigh_row, neigh_col), out_img[row][col]))
+            for (row, col), color in buffer:
+                grid[row][col] = Alphabet.FILL.value
+                out_img[row][col] = color
 
     def to_image(self, grid):
         height, width = grid.shape
@@ -116,6 +132,7 @@ class TileGrid:
                                     (tile_min_row, tile_min_col),
                                     (tile_max_row, tile_max_col))
         # Remove # borders
+        self._extend_tile_into_borders_(grid, out_img)
         out_img = out_img[1:-1, 1:-1]
         return out_img
 
