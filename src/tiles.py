@@ -25,7 +25,10 @@ class Tile:
         self.size = len(self.fill_layers)
 
     def __str__(self):
-        return str(self.fill_layers[0][0])
+        try:
+            return str(self.fill_layers[0][0])
+        except IndexError:
+            return "PHANTOM"
 
 
 class TileGrid:
@@ -60,6 +63,26 @@ class TileGrid:
         for row in self.grid:
             row.sort(key=get_key)
 
+    def to_square(self):
+        longest_row = 0
+        for row in self.grid:
+            row_len = len(row)
+            if row_len > longest_row:
+                longest_row = row_len
+
+        for row in self.grid:
+            if len(row) < longest_row:
+                row_len = len(row)
+                while row_len < longest_row:
+                    diff = longest_row - row_len
+                    if diff % 2 == 0:
+                        row.insert(0, Tile())
+                        row.append(Tile())
+                        row_len += 2
+                    else:
+                        row.append(Tile())
+                        row_len += 1
+
     def init_tile_attributes(self, colors, shapes):
         for row in self.grid:
             for tile in row:
@@ -77,7 +100,8 @@ class TileGrid:
                 tile.shape.size = random.randint(1, tile.size)
 
     @staticmethod
-    def _extend_tile_into_borders_(grid, out_img):
+    def _extend_tile_into_borders_(orig_grid, out_img):
+        grid = np.copy(orig_grid)
         found_border = True
         while found_border:
             found_border = False
@@ -135,6 +159,41 @@ class TileGrid:
         self._extend_tile_into_borders_(grid, out_img)
         out_img = out_img[1:-1, 1:-1]
         return out_img
+
+    @staticmethod
+    def _direction_to_coords_(direction, row, col):
+        dir_dict = {
+            "U": (row - 1, col),
+            "D": (row + 1, col),
+            "L": (row, col - 1),
+            "R": (row, col + 1),
+            "UL": (row - 1, col - 1),
+            "UR": (row - 1, col + 1),
+            "DL": (row + 1, col - 1),
+            "DR": (row + 1, col + 1),
+        }
+        return dir_dict[direction]
+
+    def _size_transform_step_(self, smaller_shape_dir):
+        buffer = []
+        if smaller_shape_dir is not None:
+            for row, row_content in enumerate(self.grid):
+                for col, tile in enumerate(row_content):
+                    comp_tile_row, comp_tile_col = self._direction_to_coords_(smaller_shape_dir, row, col)
+                    try:
+                        comp_tile = self.grid[comp_tile_row][comp_tile_col]
+                    except IndexError:
+                        continue
+                    if tile.shape.size > comp_tile.shape.size:
+                        buffer.append((tile, comp_tile))
+
+        for tile, comp_tile in buffer:
+            temp = tile.shape
+            tile.shape = comp_tile.shape
+            comp_tile.shape = temp
+
+    def apply_transformation_step(self, smaller_shape_dir, lighter_bg_color_dir, ligher_shape_color_dir):
+        self._size_transform_step_(smaller_shape_dir)
 
     def __str__(self):
         out = ""

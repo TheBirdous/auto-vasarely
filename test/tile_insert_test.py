@@ -37,5 +37,5 @@ def test_tile_recog4():
 if __name__ == '__main__':
     # test_tile_recog1()
     # test_tile_recog2()
-    # test_tile_recog3()
+    #test_tile_recog3()
     test_tile_recog4()
