@@ -14,7 +14,7 @@ def resize_test1():
 def resize_test2():
     img = cv2.imread("../resources/test_rand_fill2.out.png")
     height, width, rgb = img.shape
-    img = cv2.resize(img, (int(width*1.5), int(height*1.5)), interpolation=cv2.INTER_LINEAR)
+    img = cv2.resize(img, (int(width*4), int(height*4)), interpolation=cv2.INTER_NEAREST)
 
     cv2.imwrite("../resources/resize_test2.out.png", img)
 

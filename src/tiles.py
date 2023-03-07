@@ -92,12 +92,15 @@ class TileGrid:
                     if tile_color_rand < occurrence:
                         tile.color = color
                         break
-                for color, occurrence in colors:
-                    if shape_color_rand < occurrence and color != tile.color:
-                        tile.shape.color = color
-                        break
+
+                tile.shape.color = tile.color
+                while tile.shape.color == tile.color:
+                    for color, occurrence in colors:
+                        if shape_color_rand < occurrence and color != tile.color:
+                            tile.shape.color = color
+                            break
                 tile.shape.type = shapes[random.randint(0, len(shapes) - 1)]
-                tile.shape.size = random.randint(1, tile.size)
+                tile.shape.size = random.randint(int(tile.size/4 ), tile.size)
 
     @staticmethod
     def _extend_tile_into_borders_(orig_grid, out_img):
@@ -108,55 +111,64 @@ class TileGrid:
             buffer = []
             for row, row_value in enumerate(grid):
                 for col, col_value in enumerate(row_value):
-                    if (grid[row][col] != Alphabet.TILE_BORDER.value
-                            and grid[row][col] != Alphabet.IMG_BORDER.value):
-                        neighbourhood = [(row, col + 1), (row, col - 1),
-                                         (row + 1, col), (row - 1, col)]
-                        for neigh_row, neigh_col in neighbourhood:
-                            if grid[neigh_row][neigh_col] == Alphabet.TILE_BORDER.value:
-                                found_border = True
-                                buffer.append(((neigh_row, neigh_col), out_img[row][col]))
+                    if grid[row][col] == Alphabet.TILE_BORDER.value:
+                        found_border = True
+                        if grid[row][col - 1] == Alphabet.FILL.value:
+                            buffer.append(((row, col), out_img[row][col - 1]))
+                        elif grid[row][col + 1] == Alphabet.FILL.value:
+                            buffer.append(((row, col), out_img[row][col + 1]))
+                        elif grid[row - 1][col] == Alphabet.FILL.value:
+                            buffer.append(((row, col), out_img[row - 1][col]))
+                        elif grid[row + 1][col] == Alphabet.FILL.value:
+                            buffer.append(((row, col), out_img[row + 1][col]))
             for (row, col), color in buffer:
                 grid[row][col] = Alphabet.FILL.value
                 out_img[row][col] = color
 
-    def to_image(self, grid):
+    def to_image(self, grid, border_color=None):
         height, width = grid.shape
-        out_img = np.zeros((height, width, 3), np.uint8)
+        fill_borders = False
+        if border_color is None:
+            border_color = (0, 0, 0)
+            fill_borders = True
+        out_img = np.full((height, width, 3), border_color, dtype=np.uint8)
         for row in self.grid:
             for tile in row:
-                if tile.shape.type == Shapes.CONTOUR:
-                    for layer_idx, fill_layer in enumerate(tile.fill_layers):
-                        for pixel_row, pixel_col in fill_layer:
-                            if layer_idx >= len(tile.fill_layers) - tile.shape.size:
-                                out_img[pixel_row][pixel_col] = tile.shape.color
-                            else:
+                if len(tile.fill_layers) > 0:
+                    if tile.shape.type == Shapes.CONTOUR:
+                        for layer_idx, fill_layer in enumerate(tile.fill_layers):
+                            for pixel_row, pixel_col in fill_layer:
+                                if layer_idx >= len(tile.fill_layers) - tile.shape.size:
+                                    out_img[pixel_row][pixel_col] = tile.shape.color
+                                else:
+                                    out_img[pixel_row][pixel_col] = tile.color
+                    else:
+                        tile_max_row = 0
+                        tile_max_col = 0
+                        tile_min_row = height
+                        tile_min_col = width
+                        for fill_layer in tile.fill_layers:
+                            for pixel_row, pixel_col in fill_layer:
+                                if pixel_row > tile_max_row:
+                                    tile_max_row = pixel_row
+                                if pixel_col > tile_max_col:
+                                    tile_max_col = pixel_col
+
+                                if pixel_row < tile_min_row:
+                                    tile_min_row = pixel_row
+                                if pixel_col < tile_min_col:
+                                    tile_min_col = pixel_col
+
                                 out_img[pixel_row][pixel_col] = tile.color
-                else:
-                    tile_max_row = 0
-                    tile_max_col = 0
-                    tile_min_row = height
-                    tile_min_col = width
-                    for fill_layer in tile.fill_layers:
-                        for pixel_row, pixel_col in fill_layer:
-                            if pixel_row > tile_max_row:
-                                tile_max_row = pixel_row
-                            if pixel_col > tile_max_col:
-                                tile_max_col = pixel_col
-
-                            if pixel_row < tile_min_row:
-                                tile_min_row = pixel_row
-                            if pixel_col < tile_min_col:
-                                tile_min_col = pixel_col
-
-                            out_img[pixel_row][pixel_col] = tile.color
-                    tile.shape.draw(grid,
-                                    out_img,
-                                    tile.fill_layers[-1][-1],
-                                    (tile_min_row, tile_min_col),
-                                    (tile_max_row, tile_max_col))
+                        # tile.shape.draw(grid,
+                        #                 out_img,
+                        #                 tile.fill_layers[-1][-1],
+                        #                 (tile_min_row, tile_min_col),
+                        #                 (tile_max_row, tile_max_col))
+                        tile.shape.new_draw(grid, out_img, tile.fill_layers[-1][-1])
         # Remove # borders
-        self._extend_tile_into_borders_(grid, out_img)
+        if fill_borders:
+            self._extend_tile_into_borders_(grid, out_img)
         out_img = out_img[1:-1, 1:-1]
         return out_img
 
@@ -174,26 +186,45 @@ class TileGrid:
         }
         return dir_dict[direction]
 
-    def _size_transform_step_(self, smaller_shape_dir):
+    def apply_transformation_step(self, smaller_shape_dir, lighter_bg_color_dir, lighter_shape_color_dir):
         buffer = []
-        if smaller_shape_dir is not None:
-            for row, row_content in enumerate(self.grid):
-                for col, tile in enumerate(row_content):
+        swapped = False
+        for row, row_content in enumerate(self.grid):
+            for col, tile in enumerate(row_content):
+                if smaller_shape_dir is not None:
                     comp_tile_row, comp_tile_col = self._direction_to_coords_(smaller_shape_dir, row, col)
-                    try:
+                    if (0 <= comp_tile_col < len(row_content) and
+                            0 <= comp_tile_row < len(self.grid)):
                         comp_tile = self.grid[comp_tile_row][comp_tile_col]
-                    except IndexError:
-                        continue
-                    if tile.shape.size > comp_tile.shape.size:
-                        buffer.append((tile, comp_tile))
-
-        for tile, comp_tile in buffer:
-            temp = tile.shape
-            tile.shape = comp_tile.shape
-            comp_tile.shape = temp
-
-    def apply_transformation_step(self, smaller_shape_dir, lighter_bg_color_dir, ligher_shape_color_dir):
-        self._size_transform_step_(smaller_shape_dir)
+                        if tile.shape.size > comp_tile.shape.size:
+                            # buffer.append((tile, comp_tile))
+                            temp = tile.shape
+                            tile.shape = comp_tile.shape
+                            comp_tile.shape = temp
+                            swapped = True
+                if lighter_bg_color_dir is not None:
+                    comp_tile_row, comp_tile_col = self._direction_to_coords_(lighter_bg_color_dir, row, col)
+                    if (0 <= comp_tile_col < len(row_content) and
+                            0 <= comp_tile_row < len(self.grid)):
+                        comp_tile = self.grid[comp_tile_row][comp_tile_col]
+                        if sum(tile.color) > sum(comp_tile.color):
+                            # buffer.append((tile, comp_tile))
+                            temp = tile.color
+                            tile.color = comp_tile.color
+                            comp_tile.color = temp
+                            swapped = True
+                if lighter_shape_color_dir is not None:
+                    comp_tile_row, comp_tile_col = self._direction_to_coords_(lighter_shape_color_dir, row, col)
+                    if (0 <= comp_tile_col < len(row_content) and
+                            0 <= comp_tile_row < len(self.grid)):
+                        comp_tile = self.grid[comp_tile_row][comp_tile_col]
+                        if sum(tile.shape.color) > sum(comp_tile.shape.color):
+                            # buffer.append((tile, comp_tile))
+                            temp = tile.shape.color
+                            tile.shape.color = comp_tile.shape.color
+                            comp_tile.shape.color = temp
+                            swapped = True
+        return swapped
 
     def __str__(self):
         out = ""
