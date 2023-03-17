@@ -11,9 +11,8 @@ class Alphabet(Enum):
     The set of elements in the input grid. The values represent
     grayscale colors for easy debugging.
     """
-    IMG_BORDER = 200
-    TILE_BORDER = 0
-    FILL = 150
-    FILL_BEGIN = 100
-    SHAPE = 50
-    EMPTY = 255
+    IMG_BORDER = 200    # - # symbol
+    TILE_BORDER = 0     # - B symbol
+    FILL = 150          # - F symbol
+    FILL_BEGIN = 100    # - F_B symbol
+    EMPTY = 255         # - E symbol

@@ -1,3 +1,8 @@
+"""
+auto_vasarely: recognition.py module
+Author: Marek Dohnal
+Date: 17/03/2023
+"""
 import numpy as np
 from states import State
 from alphabet import Alphabet
@@ -5,7 +10,13 @@ from tiles import Tile, TileGrid
 
 
 def recognize_tiles(grid, num_of_tiles_on_rows):
-    """ Recognizes tiles from an input grid and returns them as a 2D array. """
+    """
+    Recognizes tiles from an input grid and returns them as a 2D array.
+    :param grid is the input grid containing tiles
+    :param num_of_tiles_on_rows is a list representing a pattern
+            given by the number of tiles on rows
+    :return: array of tiles
+    """
     tile_grid = TileGrid()
     tile_num = 1
     state = State.S0
@@ -70,8 +81,6 @@ def _find_new_beginning_(grid, start_row, start_col):
         grid[row][col] = Alphabet.FILL_BEGIN.value
 
     return state, row, col
-
-    # TODO: Insert new tile into tile array
 
 
 def _apply_buffer_(grid, fill_buffer):
@@ -318,4 +327,3 @@ def _fill_tile_(grid, start_row, start_col, tile):
             break
 
     return grid
-
