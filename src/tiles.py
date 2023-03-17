@@ -160,12 +160,7 @@ class TileGrid:
                                     tile_min_col = pixel_col
 
                                 out_img[pixel_row][pixel_col] = tile.color
-                        # tile.shape.draw(grid,
-                        #                 out_img,
-                        #                 tile.fill_layers[-1][-1],
-                        #                 (tile_min_row, tile_min_col),
-                        #                 (tile_max_row, tile_max_col))
-                        tile.shape.new_draw(grid, out_img, tile.fill_layers[-1][-1])
+                        tile.shape.draw(grid, out_img, tile.fill_layers[-1][-1])
         # Remove # borders
         if fill_borders:
             self._extend_tile_into_borders_(grid, out_img)
