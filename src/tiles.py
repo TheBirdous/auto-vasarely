@@ -1,3 +1,8 @@
+"""
+auto_vasarely: tiles.py module
+Author: Marek Dohnal
+Date: 18/03/2023
+"""
 import numpy as np
 from shapes import Shape, Shapes
 import random
@@ -5,6 +10,9 @@ from alphabet import Alphabet
 
 
 class Tile:
+    """
+    Represents a tile from the input grid.
+    """
     def __init__(self, fill_layers=None,
                  color=(255, 0, 0),
                  shape=None,
@@ -12,19 +20,35 @@ class Tile:
         if fill_layers is None:
             fill_layers = []
         self.fill_layers = fill_layers
+        """ Layers filled during recognition containing pixel coordinates (row, col) on the input grid """
         self.color = color
+        """ The background color of the tile (R, G, B) """
         if shape is None:
             shape = Shape()
         self.shape = shape
+        """ Inner shape of the tile """
         self.size = size
+        """ Tile size is the number of fill layers """
 
     def add_fill_layer(self, fill_layer):
+        """
+        Adds a fill layer to the tile
+        :param fill_layer: A fill layer filled during recognition
+        """
         self.fill_layers.append(fill_layer)
 
     def set_size(self):
+        """
+        Sets the size of the tile based on the length of fill layers.
+        """
         self.size = len(self.fill_layers)
 
     def __str__(self):
+        """
+        Converts a tile into a string containing the coordinates of
+        the first point in it's fill_layers.
+        The word PHANTOM is returned if it's a virtual tile.
+        """
         try:
             return str(self.fill_layers[0][0])
         except IndexError:
@@ -32,10 +56,14 @@ class Tile:
 
 
 class TileGrid:
+    """
+    Represents an array of tiles, is an abstraction of the input grid.
+    """
     def __init__(self, grid=None):
         if grid is None:
             grid = []
         self.grid = grid
+        """ Two dimensional array containing tiles """
         self.grid.append([])
 
     def add_tile(self, tile, tile_num, num_of_tiles_on_rows):
@@ -56,6 +84,10 @@ class TileGrid:
         self.grid[-1].append(tile)
 
     def sort_tiles(self):
+        """
+        Sorts tiles in a row in ascending order based
+        on the column of the first point in fill layers.
+        """
         def get_key(tile):
             first_row, first_col = tile.fill_layers[0][0]
             return first_col
@@ -63,8 +95,14 @@ class TileGrid:
         for row in self.grid:
             row.sort(key=get_key)
 
-    def to_square(self):
+    def to_rect_shape(self):
+        """
+        Converts the tile grid into a rectangular shape if
+        it has rows of different lengths.
+        """
         longest_row = 0
+
+        # Get length of longest row
         for row in self.grid:
             row_len = len(row)
             if row_len > longest_row:
@@ -75,6 +113,9 @@ class TileGrid:
                 row_len = len(row)
                 while row_len < longest_row:
                     diff = longest_row - row_len
+                    # Row differs by an even number, add 2 tiles
+                    # one at the beginning
+                    # one at the end
                     if diff % 2 == 0:
                         row.insert(0, Tile())
                         row.append(Tile())
@@ -84,6 +125,12 @@ class TileGrid:
                         row_len += 1
 
     def init_tile_attributes(self, colors, shapes):
+        """
+        Represents an initial permutation of the tile grid.
+        Tiles are initialized with specified values.
+        :param colors: A list of colors and their occurences
+        :param shapes: A list of shapes to choose from randomly
+        """
         for row in self.grid:
             for tile in row:
                 tile_color_rand = random.random()
@@ -104,6 +151,11 @@ class TileGrid:
 
     @staticmethod
     def _extend_tile_into_borders_(orig_grid, out_img):
+        """
+        Extends the fill of all tiles into borders, until all borders are erased.
+        :param orig_grid: The input grid
+        :param out_img: The output image, where borders are erased
+        """
         grid = np.copy(orig_grid)
         found_border = True
         while found_border:
@@ -126,6 +178,13 @@ class TileGrid:
                 out_img[row][col] = color
 
     def to_image(self, grid, border_color=None):
+        """
+        Converts the input grid and it's corresponding tile grid into an output image
+        :param grid: the input grid
+        :param border_color: the color of the tile borders, if None, then tile fill is extended
+                into borders
+        :return: output image
+        """
         height, width = grid.shape
         fill_borders = False
         if border_color is None:
@@ -169,6 +228,13 @@ class TileGrid:
 
     @staticmethod
     def _direction_to_coords_(direction, row, col):
+        """
+        :param direction: A relative direction from the perspective of a central
+        cell in a Moore neighbourhood
+        :param row: row of the central cell
+        :param col: column of the central cell
+        :return: absolute coordinates of a cell in the chosen direction
+        """
         dir_dict = {
             "U": (row - 1, col),
             "D": (row + 1, col),
@@ -182,6 +248,13 @@ class TileGrid:
         return dir_dict[direction]
 
     def apply_transformation_step(self, smaller_shape_dir, lighter_bg_color_dir, lighter_shape_color_dir):
+        """
+        Applies a transformation (sorting) step according to specified properties
+        :param smaller_shape_dir: direction of movement of a tile with a smaller shape
+        :param lighter_bg_color_dir: direction of movement of a tile with a lighter background color
+        :param lighter_shape_color_dir: direction of movement of a tile with a lighter shape color
+        :return: true if the order of anything was changed.
+        """
         buffer = []
         swapped = False
         for row, row_content in enumerate(self.grid):
@@ -222,6 +295,11 @@ class TileGrid:
         return swapped
 
     def __str__(self):
+        """
+        Coverts a tile grid into a string containing the coordiantes of tiles
+        and a basic description
+        :return: Stringified TileGrid
+        """
         out = ""
         row_lens = ""
         for row in self.grid:
