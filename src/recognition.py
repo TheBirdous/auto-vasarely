@@ -33,7 +33,7 @@ def recognize_tiles(grid, num_of_tiles_on_rows):
         tile_num += 1
 
     tile_grid.sort_tiles()
-    tile_grid.to_square()
+    tile_grid.to_rect_shape()
     return tile_grid
 
 
