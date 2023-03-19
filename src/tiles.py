@@ -124,30 +124,34 @@ class TileGrid:
                         row.append(Tile())
                         row_len += 1
 
-    def init_tile_attributes(self, colors, shapes):
+    def init_tile_attributes(self, bg_colors, shapes, shape_colors=None):
         """
         Represents an initial permutation of the tile grid.
         Tiles are initialized with specified values.
-        :param colors: A list of colors and their occurences
+        :param shape_colors: A list of shape colors and their occurrences
+        :param bg_colors: A list of background colors and their occurrences
         :param shapes: A list of shapes to choose from randomly
         """
+
+        if shape_colors is None:
+            shape_colors = bg_colors
+
         for row in self.grid:
             for tile in row:
                 tile_color_rand = random.random()
                 shape_color_rand = random.random()
-                for color, occurrence in colors:
+                for color, occurrence in bg_colors:
                     if tile_color_rand < occurrence:
                         tile.color = color
                         break
 
                 tile.shape.color = tile.color
-                while tile.shape.color == tile.color:
-                    for color, occurrence in colors:
-                        if shape_color_rand < occurrence and color != tile.color:
-                            tile.shape.color = color
-                            break
+                for color, occurrence in shape_colors:
+                    if shape_color_rand < occurrence:
+                        tile.shape.color = color
+                        break
                 tile.shape.type = shapes[random.randint(0, len(shapes) - 1)]
-                tile.shape.size = random.randint(int(tile.size/4 ), tile.size)
+                tile.shape.size = random.randint(int(tile.size/4), tile.size)
 
     @staticmethod
     def _extend_tile_into_borders_(orig_grid, out_img):
@@ -247,9 +251,11 @@ class TileGrid:
         }
         return dir_dict[direction]
 
-    def apply_transformation_step(self, smaller_shape_dir, lighter_bg_color_dir, lighter_shape_color_dir):
+    def apply_transformation_step(self, smaller_shape_dir=None, lighter_bg_color_dir=None,
+                                  lighter_shape_color_dir=None, is_sorted_by_type=False):
         """
         Applies a transformation (sorting) step according to specified properties
+        :param is_sorted_by_type: True if sort by shape type is wished to be applied, false otherwise
         :param smaller_shape_dir: direction of movement of a tile with a smaller shape
         :param lighter_bg_color_dir: direction of movement of a tile with a lighter background color
         :param lighter_shape_color_dir: direction of movement of a tile with a lighter shape color
@@ -266,9 +272,9 @@ class TileGrid:
                         comp_tile = self.grid[comp_tile_row][comp_tile_col]
                         if tile.shape.size > comp_tile.shape.size:
                             # buffer.append((tile, comp_tile))
-                            temp = tile.shape
-                            tile.shape = comp_tile.shape
-                            comp_tile.shape = temp
+                            temp = tile.shape.size
+                            tile.shape.size = comp_tile.shape.size
+                            comp_tile.shape.size = temp
                             swapped = True
                 if lighter_bg_color_dir is not None:
                     comp_tile_row, comp_tile_col = self._direction_to_coords_(lighter_bg_color_dir, row, col)
@@ -291,6 +297,24 @@ class TileGrid:
                             temp = tile.shape.color
                             tile.shape.color = comp_tile.shape.color
                             comp_tile.shape.color = temp
+                            swapped = True
+                if is_sorted_by_type and tile.shape.type != Shapes.CONTOUR:
+                    shape_type_to_dir = {
+                        Shapes.TRIANGLE_UP: "U",
+                        Shapes.TRIANGLE_DOWN: "D",
+                        Shapes.SQUARE: "L",
+                        Shapes.SQUARE_45DEG: "R"
+                    }
+                    type_dir = shape_type_to_dir[tile.shape.type]
+                    comp_tile_row, comp_tile_col = self._direction_to_coords_(type_dir, row, col)
+                    if (0 <= comp_tile_col < len(row_content) and
+                            0 <= comp_tile_row < len(self.grid)):
+                        comp_tile = self.grid[comp_tile_row][comp_tile_col]
+                        # buffer.append((tile, comp_tile))
+                        if tile.shape.type != comp_tile.shape.type:
+                            temp = tile.shape.type
+                            tile.shape.type = comp_tile.shape.type
+                            comp_tile.shape.type = temp
                             swapped = True
         return swapped
 

@@ -130,8 +130,8 @@ if __name__ == '__main__':
     #test_fill1()
     #test_fill2()
     #test_rand_fill1()
-    #test_rand_fill2()
+    test_rand_fill2()
     #test_transform1()
-    test_transform2()
+    #test_transform2()
     #test_transform3()
 
