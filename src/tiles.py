@@ -206,22 +206,8 @@ class TileGrid:
                                 else:
                                     out_img[pixel_row][pixel_col] = tile.color
                     else:
-                        tile_max_row = 0
-                        tile_max_col = 0
-                        tile_min_row = height
-                        tile_min_col = width
                         for fill_layer in tile.fill_layers:
                             for pixel_row, pixel_col in fill_layer:
-                                if pixel_row > tile_max_row:
-                                    tile_max_row = pixel_row
-                                if pixel_col > tile_max_col:
-                                    tile_max_col = pixel_col
-
-                                if pixel_row < tile_min_row:
-                                    tile_min_row = pixel_row
-                                if pixel_col < tile_min_col:
-                                    tile_min_col = pixel_col
-
                                 out_img[pixel_row][pixel_col] = tile.color
                         tile.shape.draw(grid, out_img, tile.fill_layers[-1][-1])
         # Remove # borders
@@ -281,7 +267,7 @@ class TileGrid:
                     if (0 <= comp_tile_col < len(row_content) and
                             0 <= comp_tile_row < len(self.grid)):
                         comp_tile = self.grid[comp_tile_row][comp_tile_col]
-                        if sum(tile.color) > sum(comp_tile.color):
+                        if sum(tile.color) < sum(comp_tile.color):
                             # buffer.append((tile, comp_tile))
                             temp = tile.color
                             tile.color = comp_tile.color
@@ -292,7 +278,7 @@ class TileGrid:
                     if (0 <= comp_tile_col < len(row_content) and
                             0 <= comp_tile_row < len(self.grid)):
                         comp_tile = self.grid[comp_tile_row][comp_tile_col]
-                        if sum(tile.shape.color) > sum(comp_tile.shape.color):
+                        if sum(tile.shape.color) < sum(comp_tile.shape.color):
                             # buffer.append((tile, comp_tile))
                             temp = tile.shape.color
                             tile.shape.color = comp_tile.shape.color
