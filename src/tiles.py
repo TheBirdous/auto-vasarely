@@ -124,7 +124,7 @@ class TileGrid:
                         row.append(Tile())
                         row_len += 1
 
-    def init_tile_attributes(self, bg_colors, shapes, shape_colors=None):
+    def init_tile_attributes(self, bg_colors, shape_colors, shapes):
         """
         Represents an initial permutation of the tile grid.
         Tiles are initialized with specified values.
@@ -132,9 +132,6 @@ class TileGrid:
         :param bg_colors: A list of background colors and their occurrences
         :param shapes: A list of shapes to choose from randomly
         """
-
-        if shape_colors is None:
-            shape_colors = bg_colors
 
         for row in self.grid:
             for tile in row:

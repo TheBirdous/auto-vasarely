@@ -41,10 +41,12 @@ def test_rand_fill2():
     grid = parser.img_to_grid("../resources/hexagons.png")
 
     tile_grid = recognition.recognize_tiles(grid, [17])
-    colors = palette.img_to_palette("../resources/colors/MAJUS.jpg")
+    bg_colors = palette.img_to_palette("../resources/colors/MAJUS.jpg")
+    shape_colors = palette.img_to_palette("../resources/colors/MAJUS.jpg")
+
     shape_list = [shapes.Shapes.TRIANGLE_UP, shapes.Shapes.TRIANGLE_DOWN, shapes.Shapes.SQUARE_45DEG,
                   shapes.Shapes.SQUARE]
-    tile_grid.init_tile_attributes(colors, shape_list)
+    tile_grid.init_tile_attributes(bg_colors, shape_colors, shape_list)
     shapes.init_shape_fill_templates(tile_grid)
     out_img = tile_grid.to_image(grid)
     print(tile_grid)

@@ -15,3 +15,4 @@ def img_to_palette(colored_img_path):
     # print(f"Number of pixels: {pixel_count}")
     # print(f"Summed pixels: {sum}")
     return colors_cummul
+

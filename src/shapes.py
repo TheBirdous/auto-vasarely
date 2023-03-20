@@ -10,6 +10,9 @@ import numpy as np
 
 
 class Shapes(Enum):
+    """
+    Types of shapes that can occur within a tile
+    """
     TRIANGLE_UP = 1
     TRIANGLE_DOWN = 2
     SQUARE = 3
@@ -121,7 +124,6 @@ class Shape:
         :param grid: The original input grid
         :param out_img: The output image
         :param start: Starting position for growth (last point in the fill_layers attribute of a tile)
-        :return:
         """
         start_row, start_col = start
         for layer_idx in range(0, self.size - 1):
