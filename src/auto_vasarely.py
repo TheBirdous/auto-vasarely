@@ -196,7 +196,7 @@ print(os.path.join(args.output_path, "video.avi"))
 
 # Execution the main body
 print("Parsing image...")
-grid = parser.img_to_grid(args.grid_path)
+grid, (orig_height, orig_width) = parser.img_to_grid(args.grid_path)
 
 print("Recognizing grid...")
 tile_grid = recognition.recognize_tiles(grid, int_seq_list)
@@ -219,7 +219,6 @@ print("Converting to images...")
 for i in range(0, args.number_of_transformations + 1):
     out_img = tile_grid.to_image(grid, args.border_color_path)
     imgs.append(out_img)
-    cv2.imwrite(os.path.join(frames_path, f"frame_{i}.png"), out_img)
     print(f"Applying transformation {i} of total {args.number_of_transformations}...", end='\r')
     tile_grid.apply_transformation_step(args.smaller_shape_dir,
                                         args.lighter_background_dir,
@@ -228,7 +227,7 @@ for i in range(0, args.number_of_transformations + 1):
 print()
 print("Encoding video...")
 video_path = os.path.join(args.output_path, "video.avi")
-videoenc.imgs_to_video(video_path, imgs, args.output_scale)
+videoenc.imgs_to_video(video_path, frames_path, imgs, orig_height, orig_width, args.output_scale)
 print()
 print(f"Video was saved into the following file:")
 print(os.path.abspath(video_path))

@@ -22,10 +22,11 @@ def img_to_grid(img_path: str, threshold=150, interpolation=cv2.INTER_LINEAR):
         :return: padded grid ready for recognition
     """
     img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
+    height, width = img.shape
     img = _resize_img_(img, interpolation)
     ret, bw_img = cv2.threshold(img, threshold, 255, cv2.THRESH_BINARY)
     grid = np.pad(array=bw_img, mode='constant', constant_values=Alphabet.IMG_BORDER.value, pad_width=((1, 1), (1, 1)))
-    return grid
+    return grid, (height, width)
 
 
 def _resize_img_(img, interpolation):
