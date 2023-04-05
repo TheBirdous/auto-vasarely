@@ -12,6 +12,7 @@ import videoenc
 import shapes
 import cv2
 import os
+from alphabet import Alphabet
 
 
 directions = ["U", "D", "L", "R", "UL", "UR", "DL", "DR"]
@@ -26,13 +27,13 @@ arg_parser.add_argument('grid_path',
 arg_parser.add_argument('row_sequence',
                         type=str,
                         help='Describes the pattern created by changing number of tiles on rows of the input grid. '
-                             'Row lengths are not separated in the row_sequence argument, '
-                             'pattern of lengths a, b, c would be simply written as abc '
+                             'Row lengths are separated by a "-" (hyphen) character in the row_sequence argument, '
+                             'pattern of lengths a, b, c would be written as a-b-c '
                              'Example: '
-                             'a grid with 7 tiles on a row would have 7 for sequence, '
+                             'a grid with 7 tiles on a row would have 7 as a sequence, '
                              'whereas a grid with a pattern of 5 tiles per row followed by '
                              '2 tiles would be represented '
-                             'by a sequence 52')
+                             'by a sequence 5-2')
 
 arg_parser.add_argument('background_colors_path',
                         type=str,
@@ -116,6 +117,19 @@ arg_parser.add_argument('-o', '--output_scale',
                              'values > 1 enlarge the resolution, smaller values shrink it. '
                              'Argument must be in the interval (0, 100]')
 
+arg_parser.add_argument('-t', '--threshold',
+                        type=int,
+                        default=150,
+                        help='Optional argument specifying the threshold used when converting the input grid from '
+                             'a colored image into an image containing only black and white. Values should be in '
+                             'the following interval: [0, 255]')
+
+arg_parser.add_argument('-f', '--framerate',
+                        type=int,
+                        default=1,
+                        help='Number of frames per second of the output video. Values should be in the following '
+                             'interval: [0, 60]')
+
 args = arg_parser.parse_args()
 
 # Argument check
@@ -126,12 +140,8 @@ if not os.path.exists(args.grid_path):
     err_found = True
 
 if not os.path.exists(args.background_colors_path):
-    print(f"ERROR: Invalid background_colors_path, please specify a correct path for the image containing"
+    print(f"ERROR: Invalid background_colors_path, please specify a correct path for the image containing "
           f"background colors.")
-    err_found = True
-
-if not os.path.exists(args.output_path):
-    print(f"ERROR: Invalid output_path, please specify a correct path for the output images and video.")
     err_found = True
 
 if args.border_color_path is not None:
@@ -147,10 +157,10 @@ if args.shape_colors_path is not None:
         err_found = True
 
 try:
-    int_seq_list = [int(c) for c in list(args.row_sequence)]
-    for digit in int_seq_list:
-        if digit <= 0:
-            print(f"ERROR: The row_sequence argument can only contain digits larger than 0. "
+    int_seq_list = [int(c) for c in args.row_sequence.split("-")]
+    for num in int_seq_list:
+        if num <= 0:
+            print(f"ERROR: The row_sequence argument can only contain numbers larger than 0. "
                   f"Please enter a correct sequence or use the -h flag to see correct usage.")
             err_found = True
             break
@@ -178,28 +188,54 @@ else:
 
 
 if not (0 < args.output_scale <= 100):
-    print(f"ERROR: The optional argument --output_scale (-o) has an incorrect value of {args.output_scale}."
+    print(f"ERROR: The optional argument --output_scale (-o) has an incorrect value of {args.output_scale}. "
           f"Argument must be in the interval (0, 100].")
+    err_found = True
+
+if not (0 <= args.threshold <= 255):
+    print(f"ERROR: The optional argument --threshold (-t) has an incorrect value of {args.threshold}. "
+          f"Argument must be in the interval [0, 255].")
+    err_found = True
+
+if not (1 <= args.framerate <= 60):
+    print(f"ERROR: The optional argument --framerate (-f) has an incorrect value of {args.framerate}. "
+          f"Argument must be in the interval [1, 60].")
     err_found = True
 
 if err_found:
     quit()
 
+# Create output directory if it doesn't exist
+if not os.path.exists(args.output_path):
+    os.makedirs(args.output_path)
+
+# Create directory holding the output frames if it doesn't exist
 frames_path = os.path.join(args.output_path, "frames")
 if not os.path.exists(frames_path):
-    # if the demo_folder directory is not present
-    # then create it.
     os.makedirs(frames_path)
 
-print(args)
-print(os.path.join(args.output_path, "video.avi"))
+# print(args)
+# print(os.path.join(args.output_path, "video.mp4"))
 
-# Execution the main body
+# Execution of the main body
 print("Parsing image...")
-grid, (orig_height, orig_width) = parser.img_to_grid(args.grid_path)
+grid, (orig_height, orig_width) = parser.img_to_grid(args.grid_path, threshold=args.threshold)
 
 print("Recognizing grid...")
 tile_grid = recognition.recognize_tiles(grid, int_seq_list)
+
+if tile_grid is None:
+    grid_path = os.path.join(args.output_path, f"unrecognized_grid.png")
+    cv2.imwrite(grid_path, grid)
+    print(f"ERROR: The input grid could not be recognized. Try changing the threshold value using the "
+          f"-t argument. Halted recognition was saved into the following path: ")
+    print(grid_path)
+    quit()
+
+for row in grid:
+    for pixel in row:
+        if pixel == Alphabet.FILL_BEGIN.value:
+            pixel = Alphabet.FILL.value
 
 print("Extracting colors...")
 bg_colors = palette.img_to_palette(args.background_colors_path)
@@ -209,6 +245,11 @@ if args.shape_colors_path is None:
 else:
     shape_colors = palette.img_to_palette(args.shape_colors_path)
 
+if args.border_color_path is not None:
+    border_color = palette.img_to_palette(args.border_color_path)[0][0]
+else:
+    border_color = None
+
 print("Initializing tile grid...")
 tile_grid.init_tile_attributes(bg_colors, shape_colors, shape_list)
 shapes.init_shape_fill_templates(tile_grid)
@@ -217,7 +258,7 @@ shapes.init_shape_fill_templates(tile_grid)
 imgs = []
 print("Converting to images...")
 for i in range(0, args.number_of_transformations + 1):
-    out_img = tile_grid.to_image(grid, args.border_color_path)
+    out_img = tile_grid.to_image(grid, border_color)
     imgs.append(out_img)
     print(f"Applying transformation {i} of total {args.number_of_transformations}...", end='\r')
     tile_grid.apply_transformation_step(args.smaller_shape_dir,
@@ -226,8 +267,9 @@ for i in range(0, args.number_of_transformations + 1):
                                         args.sort_types)
 print()
 print("Encoding video...")
-video_path = os.path.join(args.output_path, "video.avi")
-videoenc.imgs_to_video(video_path, frames_path, imgs, orig_height, orig_width, args.output_scale)
+video_path = os.path.join(args.output_path, "video.mp4")
+videoenc.imgs_to_video(video_path, frames_path, imgs, orig_height, orig_width,
+                       args.output_scale, framerate=args.framerate)
 print()
 print(f"Video was saved into the following file:")
 print(os.path.abspath(video_path))

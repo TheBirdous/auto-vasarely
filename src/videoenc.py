@@ -3,12 +3,14 @@ auto_vasarely: videoenc.py module
 Author: Marek Dohnal
 Date: 20/03/2023
 """
+import copy
+
 import cv2
 import numpy as np
 import os
 
 
-def imgs_to_video(save_path, frames_path, imgs, orig_height, orig_width, scale_factor=1):
+def imgs_to_video(save_path, frames_path, imgs, orig_height, orig_width, scale_factor=1, framerate=1):
     """
     Converts an array of image into a video output
     :param frames_path: The path, where frames are saved
@@ -22,12 +24,17 @@ def imgs_to_video(save_path, frames_path, imgs, orig_height, orig_width, scale_f
     if len(imgs) > 0:
         height = int(orig_height*scale_factor)
         width = int(orig_width*scale_factor)
-        out = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*'DIVX'), 1, (width, height))
+        out = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*'mp4v'), framerate, (width, height))
 
+        non_reversed = []
         for i, img in enumerate(imgs):
-            print(width, height)
-            img = cv2.resize(img, (width, height), interpolation=cv2.INTER_NEAREST)
             cv2.imwrite(os.path.join(frames_path, f"frame_{i}.png"), img)
+            non_reversed.append(np.copy(img))
+
+        imgs.reverse()
+        non_reversed += imgs
+        for img in non_reversed:
+            img = cv2.resize(img, (width, height), interpolation=cv2.INTER_NEAREST)
             out.write(img)
 
         out.release()

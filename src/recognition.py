@@ -27,13 +27,23 @@ def recognize_tiles(grid, num_of_tiles_on_rows):
         state, row, col = _find_new_beginning_(grid, row, col)
         if state == State.Sr:
             break
-        grid = _fill_tile_(grid, row, col, tile)
+
+        # Handle incorrectly specified input grid
+        try:
+            grid = _fill_tile_(grid, row, col, tile)
+        except IndexError:
+            return None
+
         tile.set_size()
         tile_grid.add_tile(tile, tile_num, num_of_tiles_on_rows)
         tile_num += 1
 
     tile_grid.sort_tiles()
     tile_grid.to_rect_shape()
+
+    for row, col in np.ndindex(grid.shape):
+        if grid[row][col] == Alphabet.FILL_BEGIN.value:
+            grid[row][col] = Alphabet.FILL.value
     return tile_grid
 
 

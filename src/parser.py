@@ -11,7 +11,7 @@ from alphabet import Alphabet
 MAX_SIZE = 1000
 
 
-def img_to_grid(img_path: str, threshold=150, interpolation=cv2.INTER_LINEAR):
+def img_to_grid(img_path: str, threshold=170, interpolation=cv2.INTER_LINEAR):
     """ Returns a numpy array of numbers representing a padded grid ready for recognition
         from an input image.
 

@@ -34,7 +34,7 @@ def test_video1():
 
 def test_video2():
     print("Parsing image...")
-    grid = parser.img_to_grid("../resources/hexagons.png")
+    grid, shape = parser.img_to_grid("../resources/hexagons.png")
     print("Recognizing grid...")
 
     tile_grid = recognition.recognize_tiles(grid, [17])
@@ -48,7 +48,7 @@ def test_video2():
     print(tile_grid)
     imgs = []
     print("Converting to images...")
-    for i in range(0, 15):
+    for i in range(0, 1):
         out_img = tile_grid.to_image(grid, (145, 163, 176))
         imgs.append(out_img)
         cv2.imwrite(f"../resources/videotest2/frame{i}.out.png", out_img)
