@@ -234,8 +234,8 @@ class TileGrid:
         }
         return dir_dict[direction]
 
-    def apply_transformation_step(self, smaller_shape_dir=None, lighter_bg_color_dir=None,
-                                  lighter_shape_color_dir=None, is_sorted_by_type=False):
+    def apply_transformation_step(self, smaller_shape_dir="N", lighter_bg_color_dir="N",
+                                  lighter_shape_color_dir="N", is_sorted_by_type=False):
         """
         Applies a transformation (sorting) step according to specified properties
         :param is_sorted_by_type: True if sort by shape type is wished to be applied, false otherwise
@@ -248,34 +248,34 @@ class TileGrid:
         swapped = False
         for row, row_content in enumerate(self.grid):
             for col, tile in enumerate(row_content):
-                if smaller_shape_dir is not None:
+                if smaller_shape_dir != "N":
                     comp_tile_row, comp_tile_col = self._direction_to_coords_(smaller_shape_dir, row, col)
                     if (0 <= comp_tile_col < len(row_content) and
                             0 <= comp_tile_row < len(self.grid)):
                         comp_tile = self.grid[comp_tile_row][comp_tile_col]
-                        if tile.shape.size > comp_tile.shape.size:
+                        if tile.shape.size < comp_tile.shape.size:
                             # buffer.append((tile, comp_tile))
                             temp = tile.shape.size
                             tile.shape.size = comp_tile.shape.size
                             comp_tile.shape.size = temp
                             swapped = True
-                if lighter_bg_color_dir is not None:
+                if lighter_bg_color_dir != "N":
                     comp_tile_row, comp_tile_col = self._direction_to_coords_(lighter_bg_color_dir, row, col)
                     if (0 <= comp_tile_col < len(row_content) and
                             0 <= comp_tile_row < len(self.grid)):
                         comp_tile = self.grid[comp_tile_row][comp_tile_col]
-                        if sum(tile.color) < sum(comp_tile.color):
+                        if sum(tile.color) > sum(comp_tile.color):
                             # buffer.append((tile, comp_tile))
                             temp = tile.color
                             tile.color = comp_tile.color
                             comp_tile.color = temp
                             swapped = True
-                if lighter_shape_color_dir is not None:
+                if lighter_shape_color_dir != "N":
                     comp_tile_row, comp_tile_col = self._direction_to_coords_(lighter_shape_color_dir, row, col)
                     if (0 <= comp_tile_col < len(row_content) and
                             0 <= comp_tile_row < len(self.grid)):
                         comp_tile = self.grid[comp_tile_row][comp_tile_col]
-                        if sum(tile.shape.color) < sum(comp_tile.shape.color):
+                        if sum(tile.shape.color) > sum(comp_tile.shape.color):
                             # buffer.append((tile, comp_tile))
                             temp = tile.shape.color
                             tile.shape.color = comp_tile.shape.color

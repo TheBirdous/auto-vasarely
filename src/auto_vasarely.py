@@ -15,7 +15,7 @@ import os
 from alphabet import Alphabet
 
 
-directions = ["U", "D", "L", "R", "UL", "UR", "DL", "DR"]
+directions = ["U", "D", "L", "R", "UL", "UR", "DL", "DR", "N"]
 
 arg_parser = argparse.ArgumentParser(prog='auto-vasarely',
                                      description='Fills and trasforms an input grid, which is specified by its path.')
@@ -48,14 +48,12 @@ arg_parser.add_argument('output_path',
 
 arg_parser.add_argument('-b', '--border_color_path',
                         type=str,
-                        metavar="PATH",
                         help='Optional PATH to an image containing a color which will be applied to tile borders. '
                              'Color with the highest occurence is used. '
                              'Borders are removed if this argument is not used.')
 
 arg_parser.add_argument('-c', '--shape_colors_path',
                         type=str,
-                        metavar="PATH",
                         help='Optional argument containing a PATH to an image which is '
                              'extracted into a palette used for shapes')
 
@@ -86,33 +84,29 @@ arg_parser.add_argument('-ss', '--smaller_shape_dir',
                         type=str,
                         default="U",
                         choices=directions,
-                        metavar="DIRECTION",
                         help='Optional argument specifying the '
                              'DIRECTION smaller shapes move up in when transformations are executed. '
-                             'Default value is U. ')
+                             'Default value is U. Movement can be turned off by passing N as an argument.')
 
 arg_parser.add_argument('-lb', '--lighter_background_dir',
                         type=str,
                         default="U",
                         choices=directions,
-                        metavar="DIRECTION",
                         help='Optional argument specifying the '
                              'DIRECTION in which lighter background move up when transformations are executed. '
-                             'Default value is UL. ')
+                             'Default value is UL. Movement can be turned off by passing N as an argument.')
 
 arg_parser.add_argument('-ls', '--lighter_shape_dir',
                         type=str,
                         default="U",
                         choices=directions,
-                        metavar="DIRECTION",
                         help='Optional argument specifying the '
                              'DIRECTION in which lighter shapes move up when transformations are executed. '
-                             'Default value is DR. ')
+                             'Default value is DR. Movement can be turned off by passing N as an argument.')
 
 arg_parser.add_argument('-o', '--output_scale',
                         type=float,
                         default=1,
-                        metavar="SCALE",
                         help='Optional argument which changes the scale relative to an output image. Default is 1 '
                              'values > 1 enlarge the resolution, smaller values shrink it. '
                              'Argument must be in the interval (0, 100]')
@@ -129,6 +123,11 @@ arg_parser.add_argument('-f', '--framerate',
                         default=1,
                         help='Number of frames per second of the output video. Values should be in the following '
                              'interval: [0, 60]')
+
+arg_parser.add_argument('-jt', '--jump_transformations',
+                        action='store_true',
+                        help='If this flag is set, only the first and last state are returned on output. States in '
+                             'between are not saved as frames.')
 
 args = arg_parser.parse_args()
 
@@ -258,8 +257,9 @@ shapes.init_shape_fill_templates(tile_grid)
 imgs = []
 print("Converting to images...")
 for i in range(0, args.number_of_transformations + 1):
-    out_img = tile_grid.to_image(grid, border_color)
-    imgs.append(out_img)
+    if i == 0 or i == args.number_of_transformations or not args.jump_transformations:
+        out_img = tile_grid.to_image(grid, border_color)
+        imgs.append(out_img)
     print(f"Applying transformation {i} of total {args.number_of_transformations}...", end='\r')
     tile_grid.apply_transformation_step(args.smaller_shape_dir,
                                         args.lighter_background_dir,

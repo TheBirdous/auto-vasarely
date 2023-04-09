@@ -180,11 +180,13 @@ def test_tile_recog2():
 
 
 def test_triangles():
-    grid = parser.img_to_grid("../resources/triangles.jpg", threshold=170)
+    grid, shape = parser.img_to_grid("../resources/triangles.jpg", threshold=150)
 
-    grid = recognition.recognize_tiles(grid)
+    cv2.imwrite("../resources/triangles.grid.jpg", grid)
 
-    cv2.imwrite("../resources/triangles.out.jpg", grid)
+    # grid = recognition.recognize_tiles(grid, [8])
+
+    # cv2.imwrite("../resources/triangles.out.jpg", grid)
 
 
 def test_hexagons():
@@ -204,35 +206,35 @@ def test_triangles_and_squares():
 
 
 if __name__ == "__main__":
-    test_begin_0()
-    test_begin_1()
-    test_begin_2()
+    # test_begin_0()
+    # test_begin_1()
+    # test_begin_2()
 
     # Fill down
-    test_fill_1()
-    test_fill_2()
-    test_fill_3()
+    # test_fill_1()
+    # test_fill_2()
+    # test_fill_3()
 
     # Fill up
-    test_fill_up_1()
-    test_fill_up_2()
+    # test_fill_up_1()
+    # test_fill_up_2()
 
     # New fill begin
-    test_new_fill_begin_1()
-    test_new_fill_begin_2()
-    test_new_fill_begin_3()
+    # test_new_fill_begin_1()
+    # test_new_fill_begin_2()
+    # test_new_fill_begin_3()
 
     # Whole fill test
-    test_whole_fill1()
-    test_whole_fill2()
-    test_whole_fill3()
-    test_whole_fill4()
+    # test_whole_fill1()
+    # test_whole_fill2()
+    # test_whole_fill3()
+    # test_whole_fill4()
 
     # Tile recognition test
     # test_tile_recog1()
     # test_tile_recog2()
-    # test_triangles()
+    test_triangles()
     # test_hexagons()
-    test_triangles_and_squares()
+    # test_triangles_and_squares()
     print("Tests passed.")
 

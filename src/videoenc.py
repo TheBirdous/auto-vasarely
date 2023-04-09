@@ -28,6 +28,7 @@ def imgs_to_video(save_path, frames_path, imgs, orig_height, orig_width, scale_f
 
         non_reversed = []
         for i, img in enumerate(imgs):
+            img = cv2.resize(img, (width, height), interpolation=cv2.INTER_NEAREST)
             cv2.imwrite(os.path.join(frames_path, f"frame_{i}.png"), img)
             non_reversed.append(np.copy(img))
 
