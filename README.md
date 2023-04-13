@@ -24,7 +24,9 @@ Python interpreter necessary to run this software.
 - **[numpy](https://numpy.org/)**
 - **[extcolors](https://pypi.org/project/extcolors/)**
 ## Usage
-`auto-vasarely`  
+The following usage guide assumes the program is run from the src folder.  
+
+`py auto-vasarely`  
 `grid_path row_sequence background_colors_path output_path`  
 `[-h]`   
 `[-b BORDER_COLOR_PATH]`  
@@ -54,47 +56,83 @@ Path represents a folder into which the output is saved.
 
 ## Options
 
-### -h, --help            
-show this help message and exit
+### Help
 
-### -b PATH, --border_color_path PATH
+`-h, --help`       
+
+Show this help message and exit
+
+### Border color path
+
+`-b PATH, --border_color_path PATH`
+
 Optional PATH to an image containing a color which will be applied to tile borders. Color with the highest occurence is used. Borders are removed if this
 argument is not used.
 
-### -c PATH, --shape_colors_path _PATH
+### Shape colors path
+
+`-c PATH, --shape_colors_path _PATH`
+
 Optional argument containing a PATH to an image which is extracted into a palette used for shapes
 
-### -s SHAPES, --shapes SHAPES
+### Shapes
+
+`-s SHAPES, --shapes SHAPES`
+
 Describes the inner shapes of tiles to be drawn to the output image. SHAPES are specified as a sequence containing one of the following letters in any order:
 RUDS. The letters choose the following shapes: U - Triangle rotated up, D - Triangle rotated down, S - Square, R - Square rotated 45 degrees. If empty, the
 chosen shape is CONTOUR.
 
-### -n NUMBER_OF_TRANSFORMATIONS, --number_of_transformations NUMBER_OF_TRANSFORMATIONS
-Optional argument specifying the NUMBER_OF_TRANSFORMATIONS to be applied to the tile grid. Default value is 5.
+### Number of transformations
 
-### -st, --sort_types     
+`-n NUMBER_OF_TRANSFORMATIONS, --number_of_transformations NUMBER_OF_TRANSFORMATIONS`
+
+Optional argument specifying the NUMBER_OF_TRANSFORMATIONS to be applied to the tile grid. If no value is passed, transformations are carried out until tiles are sorted. A value 0 should be passed for no transformations to occur.
+
+### Sort shape types
+
+`-st, --sort_types`
+
 Optional argument specifying whether shapes are sorted according to their types.If set, the sorting pattern applied is: triangles pointed up: UP, triangles
 pointeddown: DOWN, squares: LEFT, rotated squares: RIGHT
 
-### -ss {U,D,L,R,UL,UR,DL,DR,N}, --smaller_shape_dir {U,D,L,R,UL,UR,DL,DR,N}
+### Smaller shape direction
+
+`-ss {U,D,L,R,UL,UR,DL,DR,N}, --smaller_shape_dir {U,D,L,R,UL,UR,DL,DR,N}`
+
 Optional argument specifying the DIRECTION smaller shapes move up in when transformations are executed. Default value is U. Movement can be turned off by
 passing N as an argument.
 
-### -lb {U,D,L,R,UL,UR,DL,DR,N}, --lighter_background_dir {U,D,L,R,UL,UR,DL,DR,N}
+### Lighter background direction
+
+`-lb {U,D,L,R,UL,UR,DL,DR,N}, --lighter_background_dir {U,D,L,R,UL,UR,DL,DR,N}`
+
 Optional argument specifying the DIRECTION in which lighter background move up when transformations are executed. Default value is UL. Movement can be turned
 off by passing N as an argument.
 
-### -ls {U,D,L,R,UL,UR,DL,DR,N}, --lighter_shape_dir {U,D,L,R,UL,UR,DL,DR,N}
+### Lighter shape direction
+
+`-ls {U,D,L,R,UL,UR,DL,DR,N}, --lighter_shape_dir {U,D,L,R,UL,UR,DL,DR,N}`
+
 Optional argument specifying the DIRECTION in which lighter shapes move up when transformations are executed. Default value is DR. Movement can be turned off
 by passing N as an argument.
-  
-### -o OUTPUT_SCALE, --output_scale OUTPUT_SCALE
+
+### Output scale
+
+`-o OUTPUT_SCALE, --output_scale OUTPUT_SCALE`
+
 Optional argument which changes the scale relative to an output image. Default is 1 values > 1 enlarge the resolution, smaller values shrink it. Argument must
 be in the interval (0, 100]
 
-### -t THRESHOLD, --threshold THRESHOLD
+### Threshold
+
+`-t THRESHOLD, --threshold THRESHOLD`
+
 Optional argument specifying the threshold used when converting the input grid from a colored image into an image containing only black and white. Values
 should be in the following interval: [0, 255]
 
-### -f FRAMERATE, --framerate FRAMERATE
+### Framerate
+
+`-f FRAMERATE, --framerate FRAMERATE`
+
 Number of frames per second of the output video. Values should be in the following interval: [0, 60]

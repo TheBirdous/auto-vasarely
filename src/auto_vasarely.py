@@ -14,7 +14,6 @@ import cv2
 import os
 from alphabet import Alphabet
 
-
 directions = ["U", "D", "L", "R", "UL", "UR", "DL", "DR", "N"]
 
 arg_parser = argparse.ArgumentParser(prog='auto-vasarely',
@@ -70,9 +69,10 @@ arg_parser.add_argument('-s', '--shapes',
 
 arg_parser.add_argument('-n', '--number_of_transformations',
                         type=int,
-                        default=5,
                         help='Optional argument specifying the '
-                             'NUMBER_OF_TRANSFORMATIONS to be applied to the tile grid. Default value is 5.')
+                             'NUMBER_OF_TRANSFORMATIONS to be applied to the tile grid. If no value is passed, '
+                             'transformations are carried out until tiles are sorted. '
+                             'A value 0 should be passed for no transformations to occur.')
 
 arg_parser.add_argument('-st', '--sort_types',
                         action='store_true',
@@ -185,7 +185,6 @@ else:
               f"R, U, D, S.")
         err_found = True
 
-
 if not (0 < args.output_scale <= 100):
     print(f"ERROR: The optional argument --output_scale (-o) has an incorrect value of {args.output_scale}. "
           f"Argument must be in the interval (0, 100].")
@@ -255,16 +254,43 @@ shapes.init_shape_fill_templates(tile_grid)
 
 # print(tile_grid)
 imgs = []
-print("Converting to images...")
-for i in range(0, args.number_of_transformations + 1):
-    if i == 0 or i == args.number_of_transformations or not args.jump_transformations:
-        out_img = tile_grid.to_image(grid, border_color)
-        imgs.append(out_img)
-    print(f"Applying transformation {i} of total {args.number_of_transformations}...", end='\r')
-    tile_grid.apply_transformation_step(args.smaller_shape_dir,
-                                        args.lighter_background_dir,
-                                        args.lighter_shape_dir,
-                                        args.sort_types)
+print("Converting to frames...")
+# First image
+out_img = tile_grid.to_image(grid, border_color)
+imgs.append(out_img)
+
+# Transformations
+# for i in range(1, args.number_of_transformations + 1):
+#     print(f"Applying transformation {i} of total {args.number_of_transformations}...", end='\r')
+#     tile_grid.apply_transformation_step(args.smaller_shape_dir,
+#                                         args.lighter_background_dir,
+#                                         args.lighter_shape_dir,
+#                                         args.sort_types)
+#     if i == args.number_of_transformations or not args.jump_transformations:
+#         out_img = tile_grid.to_image(grid, border_color)
+#         imgs.append(out_img)
+
+trans_cnt = 1
+
+if args.number_of_transformations is None or args.number_of_transformations > 0:
+    while True:
+        if args.number_of_transformations is not None:
+            print(f"Applying transformation {trans_cnt} of total {args.number_of_transformations}...", end='\r')
+        else:
+            print(f"Applying transformation {trans_cnt}. Transformations are applied until the grid is sorted...", end='\r')
+        swapped = tile_grid.apply_transformation_step(args.smaller_shape_dir,
+                                                      args.lighter_background_dir,
+                                                      args.lighter_shape_dir,
+                                                      args.sort_types)
+        if trans_cnt == args.number_of_transformations or not args.jump_transformations or not swapped:
+            out_img = tile_grid.to_image(grid, border_color)
+            imgs.append(out_img)
+        if not swapped and args.number_of_transformations is None:
+            break
+        if args.number_of_transformations == trans_cnt:
+            break
+        trans_cnt += 1
+
 print()
 print("Encoding video...")
 video_path = os.path.join(args.output_path, "video.mp4")

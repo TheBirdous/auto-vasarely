@@ -8,7 +8,7 @@ import numpy as np
 from alphabet import Alphabet
 
 
-MAX_SIZE = 1000
+MAX_SIZE = 1500
 
 
 def img_to_grid(img_path: str, threshold=170, interpolation=cv2.INTER_LINEAR):
