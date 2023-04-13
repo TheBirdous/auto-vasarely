@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>&lt;no title&gt; &#8212; auto-vasarely  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="alphabet" href="alphabet.html" />
+    <link rel="prev" title="auto-vasarely documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="alphabet.html">alphabet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="alphabet.html#alphabet.Alphabet"><code class="docutils literal notranslate"><span class="pre">Alphabet</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="alphabet.html#alphabet.Alphabet.EMPTY"><code class="docutils literal notranslate"><span class="pre">Alphabet.EMPTY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="alphabet.html#alphabet.Alphabet.FILL"><code class="docutils literal notranslate"><span class="pre">Alphabet.FILL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="alphabet.html#alphabet.Alphabet.FILL_BEGIN"><code class="docutils literal notranslate"><span class="pre">Alphabet.FILL_BEGIN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="alphabet.html#alphabet.Alphabet.IMG_BORDER"><code class="docutils literal notranslate"><span class="pre">Alphabet.IMG_BORDER</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="alphabet.html#alphabet.Alphabet.TILE_BORDER"><code class="docutils literal notranslate"><span class="pre">Alphabet.TILE_BORDER</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="palette.html">palette</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="palette.html#palette.img_to_palette"><code class="docutils literal notranslate"><span class="pre">img_to_palette()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="parser.html">parser</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="parser.html#parser._resize_img_"><code class="docutils literal notranslate"><span class="pre">_resize_img_()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="parser.html#parser.img_to_grid"><code class="docutils literal notranslate"><span class="pre">img_to_grid()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="recognition.html">recognition</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="recognition.html#recognition._apply_buffer_"><code class="docutils literal notranslate"><span class="pre">_apply_buffer_()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="recognition.html#recognition._fill_down_"><code class="docutils literal notranslate"><span class="pre">_fill_down_()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="recognition.html#recognition._fill_tile_"><code class="docutils literal notranslate"><span class="pre">_fill_tile_()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="recognition.html#recognition._fill_up_"><code class="docutils literal notranslate"><span class="pre">_fill_up_()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="recognition.html#recognition._find_new_beginning_"><code class="docutils literal notranslate"><span class="pre">_find_new_beginning_()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="recognition.html#recognition._find_new_fill_beginning_"><code class="docutils literal notranslate"><span class="pre">_find_new_fill_beginning_()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="recognition.html#recognition.recognize_tiles"><code class="docutils literal notranslate"><span class="pre">recognize_tiles()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shapes.html">shapes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shapes.html#shapes.Shape"><code class="docutils literal notranslate"><span class="pre">Shape</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="shapes.html#shapes.Shape.color"><code class="docutils literal notranslate"><span class="pre">Shape.color</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="shapes.html#shapes.Shape.draw"><code class="docutils literal notranslate"><span class="pre">Shape.draw()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="shapes.html#shapes.Shape.size"><code class="docutils literal notranslate"><span class="pre">Shape.size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="shapes.html#shapes.Shape.type"><code class="docutils literal notranslate"><span class="pre">Shape.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="shapes.html#shapes.Shapes"><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="shapes.html#shapes.Shapes.CONTOUR"><code class="docutils literal notranslate"><span class="pre">Shapes.CONTOUR</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="shapes.html#shapes.Shapes.SQUARE"><code class="docutils literal notranslate"><span class="pre">Shapes.SQUARE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="shapes.html#shapes.Shapes.SQUARE_45DEG"><code class="docutils literal notranslate"><span class="pre">Shapes.SQUARE_45DEG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="shapes.html#shapes.Shapes.TRIANGLE_DOWN"><code class="docutils literal notranslate"><span class="pre">Shapes.TRIANGLE_DOWN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="shapes.html#shapes.Shapes.TRIANGLE_UP"><code class="docutils literal notranslate"><span class="pre">Shapes.TRIANGLE_UP</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="shapes.html#shapes._pick_neighbourhood_"><code class="docutils literal notranslate"><span class="pre">_pick_neighbourhood_()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="shapes.html#shapes.init_shape_fill_templates"><code class="docutils literal notranslate"><span class="pre">init_shape_fill_templates()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="states.html">states</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="states.html#states.State"><code class="docutils literal notranslate"><span class="pre">State</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.D0"><code class="docutils literal notranslate"><span class="pre">State.D0</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.D1"><code class="docutils literal notranslate"><span class="pre">State.D1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.D2"><code class="docutils literal notranslate"><span class="pre">State.D2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.D3"><code class="docutils literal notranslate"><span class="pre">State.D3</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.D4"><code class="docutils literal notranslate"><span class="pre">State.D4</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.D5"><code class="docutils literal notranslate"><span class="pre">State.D5</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.D6"><code class="docutils literal notranslate"><span class="pre">State.D6</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.D7"><code class="docutils literal notranslate"><span class="pre">State.D7</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.D8"><code class="docutils literal notranslate"><span class="pre">State.D8</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.Da"><code class="docutils literal notranslate"><span class="pre">State.Da</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.Dr"><code class="docutils literal notranslate"><span class="pre">State.Dr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.N0"><code class="docutils literal notranslate"><span class="pre">State.N0</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.N1"><code class="docutils literal notranslate"><span class="pre">State.N1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.N2"><code class="docutils literal notranslate"><span class="pre">State.N2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.N3"><code class="docutils literal notranslate"><span class="pre">State.N3</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.N4"><code class="docutils literal notranslate"><span class="pre">State.N4</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.N5"><code class="docutils literal notranslate"><span class="pre">State.N5</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.N6"><code class="docutils literal notranslate"><span class="pre">State.N6</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.Na"><code class="docutils literal notranslate"><span class="pre">State.Na</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.Nr"><code class="docutils literal notranslate"><span class="pre">State.Nr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.S0"><code class="docutils literal notranslate"><span class="pre">State.S0</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.S1"><code class="docutils literal notranslate"><span class="pre">State.S1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.Sa"><code class="docutils literal notranslate"><span class="pre">State.Sa</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.Sr"><code class="docutils literal notranslate"><span class="pre">State.Sr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.U0"><code class="docutils literal notranslate"><span class="pre">State.U0</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.U1"><code class="docutils literal notranslate"><span class="pre">State.U1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.U2"><code class="docutils literal notranslate"><span class="pre">State.U2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.U3"><code class="docutils literal notranslate"><span class="pre">State.U3</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.U4"><code class="docutils literal notranslate"><span class="pre">State.U4</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.Ua"><code class="docutils literal notranslate"><span class="pre">State.Ua</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html#states.State.Ur"><code class="docutils literal notranslate"><span class="pre">State.Ur</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tiles.html">tiles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tiles.html#tiles.Tile"><code class="docutils literal notranslate"><span class="pre">Tile</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tiles.html#tiles.Tile.add_fill_layer"><code class="docutils literal notranslate"><span class="pre">Tile.add_fill_layer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tiles.html#tiles.Tile.color"><code class="docutils literal notranslate"><span class="pre">Tile.color</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tiles.html#tiles.Tile.fill_layers"><code class="docutils literal notranslate"><span class="pre">Tile.fill_layers</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tiles.html#tiles.Tile.set_size"><code class="docutils literal notranslate"><span class="pre">Tile.set_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tiles.html#tiles.Tile.shape"><code class="docutils literal notranslate"><span class="pre">Tile.shape</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tiles.html#tiles.Tile.size"><code class="docutils literal notranslate"><span class="pre">Tile.size</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tiles.html#tiles.TileGrid"><code class="docutils literal notranslate"><span class="pre">TileGrid</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tiles.html#tiles.TileGrid._direction_to_coords_"><code class="docutils literal notranslate"><span class="pre">TileGrid._direction_to_coords_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tiles.html#tiles.TileGrid._extend_tile_into_borders_"><code class="docutils literal notranslate"><span class="pre">TileGrid._extend_tile_into_borders_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tiles.html#tiles.TileGrid.add_tile"><code class="docutils literal notranslate"><span class="pre">TileGrid.add_tile()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tiles.html#tiles.TileGrid.apply_transformation_step"><code class="docutils literal notranslate"><span class="pre">TileGrid.apply_transformation_step()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tiles.html#tiles.TileGrid.grid"><code class="docutils literal notranslate"><span class="pre">TileGrid.grid</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tiles.html#tiles.TileGrid.init_tile_attributes"><code class="docutils literal notranslate"><span class="pre">TileGrid.init_tile_attributes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tiles.html#tiles.TileGrid.sort_tiles"><code class="docutils literal notranslate"><span class="pre">TileGrid.sort_tiles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tiles.html#tiles.TileGrid.to_image"><code class="docutils literal notranslate"><span class="pre">TileGrid.to_image()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tiles.html#tiles.TileGrid.to_rect_shape"><code class="docutils literal notranslate"><span class="pre">TileGrid.to_rect_shape()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="videoenc.html">videoenc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="videoenc.html#videoenc.imgs_to_video"><code class="docutils literal notranslate"><span class="pre">imgs_to_video()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">auto-vasarely</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="alphabet.html">alphabet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="palette.html">palette</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parser.html">parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recognition.html">recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shapes.html">shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="states.html">states</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tiles.html">tiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="videoenc.html">videoenc</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">auto-vasarely documentation</a></li>
+      <li>Next: <a href="alphabet.html" title="next chapter">alphabet</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Marek Dohnal.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/modules.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

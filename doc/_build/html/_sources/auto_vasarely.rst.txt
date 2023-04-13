@@ -1,0 +1,8 @@
+auto\_vasarely
+=====================
+
+.. automodule:: auto_vasarely
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

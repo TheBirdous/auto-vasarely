@@ -1,9 +1,10 @@
 """
-auto_vasarely: videoenc.py module
+Encodes output images into a video, and exports its frames into a folder.
+
 Author: Marek Dohnal
+
 Date: 20/03/2023
 """
-import copy
 
 import cv2
 import numpy as np
@@ -13,6 +14,7 @@ import os
 def imgs_to_video(save_path, frames_path, imgs, orig_height, orig_width, scale_factor=1, framerate=1):
     """
     Converts an array of image into a video output
+
     :param frames_path: The path, where frames are saved
     :param orig_width: The width of the original grid
     :param orig_height: The height of the original grid
@@ -21,6 +23,7 @@ def imgs_to_video(save_path, frames_path, imgs, orig_height, orig_width, scale_f
     :param scale_factor: a factor by which the resolution of the video is
             enlarged or shrinked relative to the original input image
     """
+
     if len(imgs) > 0:
         height = int(orig_height*scale_factor)
         width = int(orig_width*scale_factor)

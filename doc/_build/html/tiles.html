@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>tiles &#8212; auto-vasarely  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="videoenc" href="videoenc.html" />
+    <link rel="prev" title="states" href="states.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-tiles">
+<span id="tiles"></span><h1>tiles<a class="headerlink" href="#module-tiles" title="Permalink to this heading">¶</a></h1>
+<p>Contains definitions of the tile grid, and its constituting tiles. Also contains
+methods, which fill, transform, and sort the tile grid.</p>
+<p>Author: Marek Dohnal</p>
+<p>Date: 18/03/2023</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="tiles.Tile">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tiles.</span></span><span class="sig-name descname"><span class="pre">Tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fill_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(255,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tiles.Tile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a tile from the input grid.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tiles.Tile.add_fill_layer">
+<span class="sig-name descname"><span class="pre">add_fill_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fill_layer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tiles.Tile.add_fill_layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a fill layer to the tile
+:param fill_layer: A fill layer filled during recognition</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tiles.Tile.color">
+<span class="sig-name descname"><span class="pre">color</span></span><a class="headerlink" href="#tiles.Tile.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>The background color of the tile (R, G, B)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tiles.Tile.fill_layers">
+<span class="sig-name descname"><span class="pre">fill_layers</span></span><a class="headerlink" href="#tiles.Tile.fill_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Layers filled during recognition containing pixel coordinates (row, col) on the input grid</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tiles.Tile.set_size">
+<span class="sig-name descname"><span class="pre">set_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tiles.Tile.set_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the size of the tile based on the length of fill layers.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tiles.Tile.shape">
+<span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#tiles.Tile.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inner shape of the tile</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tiles.Tile.size">
+<span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#tiles.Tile.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tile size is the number of fill layers</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tiles.TileGrid">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tiles.</span></span><span class="sig-name descname"><span class="pre">TileGrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tiles.TileGrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents an array of tiles, is an abstraction of the input grid.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tiles.TileGrid._direction_to_coords_">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_direction_to_coords_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tiles.TileGrid._direction_to_coords_" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>direction</strong> – A relative direction from the perspective of a central</p>
+</dd>
+</dl>
+<p>cell in a Moore neighbourhood
+:param row: row of the central cell
+:param col: column of the central cell
+:return: absolute coordinates of a cell in the chosen direction</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tiles.TileGrid._extend_tile_into_borders_">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_extend_tile_into_borders_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orig_grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_img</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tiles.TileGrid._extend_tile_into_borders_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends the fill of all tiles into borders, until all borders are erased.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>orig_grid</strong> – The input grid</p></li>
+<li><p><strong>out_img</strong> – The output image, where borders are erased</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tiles.TileGrid.add_tile">
+<span class="sig-name descname"><span class="pre">add_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_of_tiles_on_rows</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tiles.TileGrid.add_tile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds tile to the tile grid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tile</strong> – is the tile to be added</p></li>
+<li><p><strong>tile_num</strong> – is the number of the tile, in order of recognition</p></li>
+<li><p><strong>num_of_tiles_on_rows</strong> – is a list of</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tiles.TileGrid.apply_transformation_step">
+<span class="sig-name descname"><span class="pre">apply_transformation_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">smaller_shape_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'N'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lighter_bg_color_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'N'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lighter_shape_color_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'N'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_sorted_by_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tiles.TileGrid.apply_transformation_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies a transformation (sorting) step according to specified properties</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>is_sorted_by_type</strong> – True if sort by shape type is wished to be applied, false otherwise</p></li>
+<li><p><strong>smaller_shape_dir</strong> – direction of movement of a tile with a smaller shape</p></li>
+<li><p><strong>lighter_bg_color_dir</strong> – direction of movement of a tile with a lighter background color</p></li>
+<li><p><strong>lighter_shape_color_dir</strong> – direction of movement of a tile with a lighter shape color</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true if the order of anything was changed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tiles.TileGrid.grid">
+<span class="sig-name descname"><span class="pre">grid</span></span><a class="headerlink" href="#tiles.TileGrid.grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Two dimensional array containing tiles</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tiles.TileGrid.init_tile_attributes">
+<span class="sig-name descname"><span class="pre">init_tile_attributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bg_colors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_colors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tiles.TileGrid.init_tile_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents an initial permutation of the tile grid.
+Tiles are initialized with specified values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape_colors</strong> – A list of shape colors and their occurrences</p></li>
+<li><p><strong>bg_colors</strong> – A list of background colors and their occurrences</p></li>
+<li><p><strong>shapes</strong> – A list of shapes to choose from randomly</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tiles.TileGrid.sort_tiles">
+<span class="sig-name descname"><span class="pre">sort_tiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tiles.TileGrid.sort_tiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sorts tiles in a row in ascending order based
+on the column of the first point in fill layers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tiles.TileGrid.to_image">
+<span class="sig-name descname"><span class="pre">to_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tiles.TileGrid.to_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the input grid and it’s corresponding tile grid into an output image</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid</strong> – the input grid</p></li>
+<li><p><strong>border_color</strong> – the color of the tile borders, if None, then tile fill is extended
+into borders</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>output image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tiles.TileGrid.to_rect_shape">
+<span class="sig-name descname"><span class="pre">to_rect_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tiles.TileGrid.to_rect_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the tile grid into a rectangular shape if
+it has rows of different lengths.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">auto-vasarely</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="alphabet.html">alphabet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_vasarely.html">auto_vasarely</a></li>
+<li class="toctree-l1"><a class="reference internal" href="palette.html">palette</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parser.html">parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recognition.html">recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shapes.html">shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="states.html">states</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">tiles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tiles.Tile"><code class="docutils literal notranslate"><span class="pre">Tile</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tiles.TileGrid"><code class="docutils literal notranslate"><span class="pre">TileGrid</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="videoenc.html">videoenc</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">&lt;no title&gt;</a><ul>
+      <li>Previous: <a href="states.html" title="previous chapter">states</a></li>
+      <li>Next: <a href="videoenc.html" title="next chapter">videoenc</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Marek Dohnal.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/tiles.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

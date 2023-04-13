@@ -1,8 +1,11 @@
 """
-auto_vasarely: videoenc.py module
+Contains states used by automata implemented in the recognition module.
+
 Author: Marek Dohnal
+
 Date: 20/03/2023
 """
+
 from enum import Enum, auto
 
 
@@ -11,6 +14,7 @@ class State(Enum):
     Represents the states used by the four-way automata
     as defined by their transition diagrams
     """
+
     # Find new beginning states
     S0 = auto()
     S1 = auto()

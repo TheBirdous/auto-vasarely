@@ -1,8 +1,11 @@
 """
-auto_vasarely: shapes.py module
+Contains definitions of shapes contained within tiles, as well as methods associated with them.
+
 Author: Marek Dohnal
+
 Date: 19/03/2023
 """
+
 import copy
 from enum import Enum, auto
 from alphabet import Alphabet
@@ -13,6 +16,7 @@ class Shapes(Enum):
     """
     Types of shapes that can occur within a tile
     """
+
     TRIANGLE_UP = 1
     TRIANGLE_DOWN = 2
     SQUARE = 3
@@ -23,6 +27,7 @@ class Shapes(Enum):
 """
 Contains shape templates represented by a list of coordinates relative to the central point of the shape.
 """
+
 SHAPE_FILL_TEMPLATES = {
     Shapes.TRIANGLE_UP: [],
     Shapes.TRIANGLE_DOWN: [],
@@ -34,11 +39,13 @@ SHAPE_FILL_TEMPLATES = {
 def _pick_neighbourhood_(shape_type, center_row, center_col):
     """
     Returns a neighbourhood in absolute coordinates for a shape type
+
     :param shape_type: determines the neighbourhood set used
     :param center_row: the row of a central cell
     :param center_col: the column of a central cell
     :return: a list of tuples (row, col) representing a neighbourhood
     """
+
     if shape_type is Shapes.SQUARE_45DEG:
         return [(center_row, center_col + 1), (center_row, center_col - 1),
                 (center_row + 1, center_col), (center_row - 1, center_col)]
@@ -64,6 +71,7 @@ def init_shape_fill_templates(tile_grid):
     Grows the shapes on a grid and initializes shape templates
     :param tile_grid: A tile grid used to extract max tile size
     """
+
     max_shape_size = 0
     for row in tile_grid.grid:
         for tile in row:
@@ -107,24 +115,30 @@ class Shape:
     """
     An inner shape of a cell
     """
+
     def __init__(self,
                  color=(120, 0, 0),
                  size=10,
                  type=Shapes.SQUARE_45DEG):
         self.color = color
         """ The color of a shape """
+
         self.size = size
         """ The size of a shape (number of layers for CONTOUR, number of steps for grown shapes)"""
+
         self.type = type
         """ Type of a shape """
+
 
     def draw(self, grid, out_img, start):
         """
         Draws a grown shape into an output image
+
         :param grid: The original input grid
         :param out_img: The output image
         :param start: Starting position for growth (last point in the fill_layers attribute of a tile)
         """
+
         start_row, start_col = start
         for layer_idx in range(0, self.size - 1):
             layer = SHAPE_FILL_TEMPLATES[self.type][layer_idx]

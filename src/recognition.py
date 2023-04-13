@@ -1,8 +1,11 @@
 """
-auto_vasarely: recognition.py module
+Implements functionality regarding the recognition of an input grid.
+
 Author: Marek Dohnal
+
 Date: 17/03/2023
 """
+
 import numpy as np
 from states import State
 from alphabet import Alphabet
@@ -12,11 +15,13 @@ from tiles import Tile, TileGrid
 def recognize_tiles(grid, num_of_tiles_on_rows):
     """
     Recognizes tiles from an input grid and returns them as a 2D array.
-    :param grid is the input grid containing tiles
-    :param num_of_tiles_on_rows is a list representing a pattern
-            given by the number of tiles on rows
+
+    :param grid: is the input grid containing tiles
+    :param num_of_tiles_on_rows: is a list representing a pattern given
+        by the number of tiles on rows
     :return: array of tiles
     """
+
     tile_grid = TileGrid()
     tile_num = 1
     state = State.S0
@@ -48,7 +53,10 @@ def recognize_tiles(grid, num_of_tiles_on_rows):
 
 
 def _find_new_beginning_(grid, start_row, start_col):
-    """ Finds the beginning of a new tile based on a grid and current position. """
+    """
+    Finds the beginning of a new tile based on a grid and current position.
+    """
+
     row = start_row
     col = start_col
     state = State.S0
@@ -95,6 +103,7 @@ def _find_new_beginning_(grid, start_row, start_col):
 
 def _apply_buffer_(grid, fill_buffer):
     """ Applies the buffer of changes to the grid. """
+
     for row, col in fill_buffer:
         grid[row][col] = Alphabet.FILL.value
     # Place F_B
@@ -106,6 +115,7 @@ def _apply_buffer_(grid, fill_buffer):
 
 def _fill_down_(grid, start_row, start_col, fill_buffer):
     """ Fills the tile down in one layer. Returns modified fill buffer, and end position. """
+
     row = start_row
     col = start_col
     state = State.D0
@@ -188,6 +198,7 @@ def _fill_down_(grid, start_row, start_col, fill_buffer):
 
 def _fill_up_(grid, start_row, start_col, fill_buffer):
     """ Fills tile up based on input grid. Returns modified fill buffer, and end position. """
+
     row = start_row
     col = start_col
     state = State.U0
@@ -242,6 +253,7 @@ def _fill_up_(grid, start_row, start_col, fill_buffer):
 
 def _find_new_fill_beginning_(grid, start_row, start_col):
     """ Finds new fill beginning (F_B) based on grid and current position """
+
     row = start_row
     col = start_col
     state = State.N0
@@ -315,6 +327,7 @@ def _fill_tile_(grid, start_row, start_col, tile):
     """ Fills the current tile, returns modified grid with filled tile and
         inserts a new tile into the tile array.
     """
+
     row = start_row
     col = start_col
 

@@ -24,7 +24,20 @@ Python interpreter necessary to run this software.
 - **[numpy](https://numpy.org/)**
 - **[extcolors](https://pypi.org/project/extcolors/)**
 
-## Demonstration
+## Documentation
+
+Documentation of modules can be found in the `doc/` folder.
+
+Built documentation can be accessed by opening the `index.html`
+file contained in the following directory: `doc/_build/html`.
+
+If one wishes to build
+the documentation themselves, 
+**[sphinx](https://www.sphinx-doc.org/en/master/index.html)**
+must be installed first.
+
+
+## Example configurations
 
 Examples of launch configurations can be found by consulting the file `report_test.py` contained 
 in the `test` folder.

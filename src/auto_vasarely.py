@@ -1,8 +1,12 @@
 """
-auto_vasarely: auto_vasarely.py MAIN module
+Main module, entry point of the application.
+
 Author: Marek Dohnal
+
 Date: 17/03/2023
+
 """
+
 import argparse
 import parser
 import recognition

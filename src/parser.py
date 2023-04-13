@@ -1,8 +1,11 @@
 """
-auto_vasarely: parser.py module
+Contains functions, which parse an image into an input grid.
+
 Author: Marek Dohnal
+
 Date: 17/03/2023
 """
+
 import cv2
 import numpy as np
 from alphabet import Alphabet

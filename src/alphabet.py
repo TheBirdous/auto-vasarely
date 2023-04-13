@@ -1,8 +1,12 @@
 """
-auto_vasarely: alphabet.py module
+Contains the alphabet used by recognition.
+
 Author: Marek Dohnal
+
 Date: 17/03/2023
+
 """
+
 from enum import Enum
 
 
