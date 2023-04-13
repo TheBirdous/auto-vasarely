@@ -71,7 +71,7 @@ argument is not used.
 
 ### Shape colors path
 
-`-c PATH, --shape_colors_path _PATH`
+`-c PATH, --shape_colors_path PATH`
 
 Optional argument containing a PATH to an image which is extracted into a palette used for shapes
 
