@@ -1,11 +1,18 @@
+"""
+auto_vasarely: alphabet.py module
+Author: Marek Dohnal
+Date: 17/03/2023
+"""
 from enum import Enum
 
 
 class Alphabet(Enum):
-    IMG_BORDER = 100,
-    TILE_BORDER = 0,
-    FILL = 150,
-    FILL_BEGIN = 100,
-    SHAPE = 50,
-    EMPTY = 255
-
+    """
+    The set of elements in the input grid. The values represent
+    grayscale colors for easy debugging.
+    """
+    IMG_BORDER = 200    # - # symbol
+    TILE_BORDER = 0     # - B symbol
+    FILL = 150          # - F symbol
+    FILL_BEGIN = 100    # - F_B symbol
+    EMPTY = 255         # - E symbol
