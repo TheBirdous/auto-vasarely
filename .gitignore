@@ -1,6 +1,7 @@
 resources/
-test_report/
-
+test_report/*/frames
+test_report/*/video*
+test_report/*/unrecognized_grid*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

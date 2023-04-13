@@ -3,7 +3,7 @@ import recognition
 
 
 def test_tile_recog1():
-    grid = parser.img_to_grid("../resources/test_new_begin.png")
+    grid = parser.img_to_grid("../../resources/test_new_begin.png")
 
     tile_grid = recognition.recognize_tiles(grid, [3])
 
@@ -11,7 +11,7 @@ def test_tile_recog1():
 
 
 def test_tile_recog2():
-    grid = parser.img_to_grid("../resources/test_grid.png")
+    grid = parser.img_to_grid("../../resources/test_grid.png")
 
     tile_grid = recognition.recognize_tiles(grid, [8])
 
@@ -19,7 +19,7 @@ def test_tile_recog2():
 
 
 def test_tile_recog3():
-    grid = parser.img_to_grid("../resources/triangles_and_squares.png")
+    grid = parser.img_to_grid("../../resources/triangles_and_squares.png")
 
     tile_grid = recognition.recognize_tiles(grid, [14, 28])
 

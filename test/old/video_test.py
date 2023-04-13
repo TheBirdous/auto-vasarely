@@ -8,13 +8,13 @@ import videoenc
 
 def test_video1():
     print("Parsing image...", end='\r')
-    grid = parser.img_to_grid("../resources/test_new_begin.png")
+    grid = parser.img_to_grid("../../resources/test_new_begin.png")
     print("Recognizing grid...", end='\r')
 
     tile_grid = recognition.recognize_tiles(grid, [17])
     print("Extracting colors...", end='\r')
-    bg_colors = palette.img_to_palette("../resources/colors/MAJUS.jpg")
-    shape_colors = palette.img_to_palette("../resources/colors/MAJUS.jpg")
+    bg_colors = palette.img_to_palette("../../resources/colors/MAJUS.jpg")
+    shape_colors = palette.img_to_palette("../../resources/colors/MAJUS.jpg")
     shape_list = [shapes.Shapes.SQUARE, shapes.Shapes.SQUARE_45DEG, shapes.Shapes.TRIANGLE_UP, shapes.Shapes.TRIANGLE_DOWN]
     print("Initializing tile grid...", end='\r')
     tile_grid.init_tile_attributes(bg_colors, shape_colors, shape_list)
@@ -29,7 +29,7 @@ def test_video1():
         print(f"Applying transformation {i}...", end='\r')
         tile_grid.apply_transformation_step("U", "UL", "L", True)
     print("Encoding video...", end='\r')
-    videoenc.imgs_to_video("../resources/videotest1.avi", imgs, 100)
+    videoenc.imgs_to_video("../../resources/videotest1.avi", imgs, 100)
 
 
 def test_video2():
@@ -39,8 +39,8 @@ def test_video2():
 
     tile_grid = recognition.recognize_tiles(grid, [17])
     print("Extracting colors...")
-    bg_colors = palette.img_to_palette("../resources/colors/MAJUS.jpg")
-    shape_colors = palette.img_to_palette("../resources/colors/MAJUS.jpg")
+    bg_colors = palette.img_to_palette("../../resources/colors/MAJUS.jpg")
+    shape_colors = palette.img_to_palette("../../resources/colors/MAJUS.jpg")
     shape_list = [shapes.Shapes.SQUARE, shapes.Shapes.SQUARE_45DEG, shapes.Shapes.TRIANGLE_UP, shapes.Shapes.TRIANGLE_DOWN]
     print("Initializing tile grid...")
     tile_grid.init_tile_attributes(bg_colors, shape_colors, shape_list)

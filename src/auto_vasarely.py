@@ -260,15 +260,6 @@ out_img = tile_grid.to_image(grid, border_color)
 imgs.append(out_img)
 
 # Transformations
-# for i in range(1, args.number_of_transformations + 1):
-#     print(f"Applying transformation {i} of total {args.number_of_transformations}...", end='\r')
-#     tile_grid.apply_transformation_step(args.smaller_shape_dir,
-#                                         args.lighter_background_dir,
-#                                         args.lighter_shape_dir,
-#                                         args.sort_types)
-#     if i == args.number_of_transformations or not args.jump_transformations:
-#         out_img = tile_grid.to_image(grid, border_color)
-#         imgs.append(out_img)
 
 trans_cnt = 1
 

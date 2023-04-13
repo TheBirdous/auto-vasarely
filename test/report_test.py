@@ -1,3 +1,9 @@
+"""
+auto_vasarely: report_test.py TEST module, used to create outputs for the testing chapter of the bachelor thesis.
+Author: Marek Dohnal
+Date: 13/04/2023
+"""
+
 import os
 
 
@@ -94,9 +100,9 @@ def triangles_low_thresh():
 
 
 if __name__ == "__main__":
-    # cubes()
-    # hexagons()
-    # square_tiles()
-    # tilted_squares()
-    # triangles()
+    cubes()
+    hexagons()
+    square_tiles()
+    tilted_squares()
+    triangles()
     triangles_low_thresh()

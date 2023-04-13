@@ -4,7 +4,7 @@ import cv2
 
 
 def test_begin_0():
-    grid = parser.img_to_grid("../resources/test_new_begin.png")
+    grid = parser.img_to_grid("../../resources/test_new_begin.png")
     state, row, col = recognition._find_new_beginning_(grid, 0, 0)
 
     assert state == State.Sa
@@ -13,7 +13,7 @@ def test_begin_0():
 
 
 def test_begin_1():
-    grid = parser.img_to_grid("../resources/test_new_begin_1.png")
+    grid = parser.img_to_grid("../../resources/test_new_begin_1.png")
     state, row, col = recognition._find_new_beginning_(grid, 0, 0)
 
     assert state == State.Sa
@@ -22,14 +22,14 @@ def test_begin_1():
 
 
 def test_begin_2():
-    grid = parser.img_to_grid("../resources/test_new_begin_2.png")
+    grid = parser.img_to_grid("../../resources/test_new_begin_2.png")
     state, row, col = recognition._find_new_beginning_(grid, 0, 0)
 
     assert state == State.Sr
 
 
 def test_fill_1():
-    grid = parser.img_to_grid("../resources/fill_test1.png")
+    grid = parser.img_to_grid("../../resources/fill_test1.png")
     # Ensure F_B
     grid[1][1] = 100
     fill_buffer = []
@@ -40,7 +40,7 @@ def test_fill_1():
 
 
 def test_fill_2():
-    grid = parser.img_to_grid("../resources/fill_test2.png")
+    grid = parser.img_to_grid("../../resources/fill_test2.png")
     # Ensure F_B
     grid[1][1] = 100
     fill_buffer = []
@@ -51,7 +51,7 @@ def test_fill_2():
 
 
 def test_fill_3():
-    grid = parser.img_to_grid("../resources/fill_test3.png")
+    grid = parser.img_to_grid("../../resources/fill_test3.png")
     # Ensure F_B
     grid[1][1] = 100
     fill_buffer = []
@@ -62,7 +62,7 @@ def test_fill_3():
 
 
 def test_fill_up_1():
-    grid = parser.img_to_grid("../resources/fill_test_up1.png")
+    grid = parser.img_to_grid("../../resources/fill_test_up1.png")
     # Ensure F_B
     grid[2][6] = 100
     fill_buffer = []
@@ -73,7 +73,7 @@ def test_fill_up_1():
 
 
 def test_fill_up_2():
-    grid = parser.img_to_grid("../resources/fill_test_up2.png")
+    grid = parser.img_to_grid("../../resources/fill_test_up2.png")
     # Ensure F_B
     grid[2][6] = 100
     fill_buffer = []
@@ -120,7 +120,7 @@ def test_new_fill_begin_3():
 
 
 def test_whole_fill1():
-    grid = parser.img_to_grid("../resources/fill_test1.png")
+    grid = parser.img_to_grid("../../resources/fill_test1.png")
 
     # Ensure F_B
     grid[1][1] = 100
@@ -131,7 +131,7 @@ def test_whole_fill1():
 
 
 def test_whole_fill2():
-    grid = parser.img_to_grid("../resources/fill_test3.png")
+    grid = parser.img_to_grid("../../resources/fill_test3.png")
 
     # Ensure F_B
     grid[1][1] = 100
@@ -142,7 +142,7 @@ def test_whole_fill2():
 
 
 def test_whole_fill3():
-    grid = parser.img_to_grid("../resources/fill_test_up2.png")
+    grid = parser.img_to_grid("../../resources/fill_test_up2.png")
 
     # Ensure F_B
     grid[2][6] = 100
@@ -153,7 +153,7 @@ def test_whole_fill3():
 
 
 def test_whole_fill4():
-    grid = parser.img_to_grid("../resources/fill_test_up1.png")
+    grid = parser.img_to_grid("../../resources/fill_test_up1.png")
 
     # Ensure F_B
     grid[2][6] = 100
@@ -164,7 +164,7 @@ def test_whole_fill4():
 
 
 def test_tile_recog1():
-    grid = parser.img_to_grid("../resources/test_new_begin.png")
+    grid = parser.img_to_grid("../../resources/test_new_begin.png")
 
     grid = recognition.recognize_tiles(grid)
 
@@ -172,7 +172,7 @@ def test_tile_recog1():
 
 
 def test_tile_recog2():
-    grid = parser.img_to_grid("../resources/test_grid.png")
+    grid = parser.img_to_grid("../../resources/test_grid.png")
 
     grid = recognition.recognize_tiles(grid)
 
@@ -198,7 +198,7 @@ def test_hexagons():
 
 
 def test_triangles_and_squares():
-    grid = parser.img_to_grid("../resources/triangles_and_squares.png")
+    grid = parser.img_to_grid("../../resources/triangles_and_squares.png")
 
     grid = recognition.recognize_tiles(grid)
 
