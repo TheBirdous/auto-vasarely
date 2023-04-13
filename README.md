@@ -23,6 +23,16 @@ Python interpreter necessary to run this software.
 - **[cv2](https://pypi.org/project/opencv-python/)**
 - **[numpy](https://numpy.org/)**
 - **[extcolors](https://pypi.org/project/extcolors/)**
+
+## Demonstration
+
+Examples of launch configurations can be found by consulting the file `report_test.py` contained 
+in the `test` folder.
+
+The script can also be launched to obtain example output by entering:
+
+`py .\test\report_test.py`
+
 ## Usage
 The following usage guide assumes the program is run from the src folder.  
 
