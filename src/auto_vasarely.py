@@ -10,7 +10,6 @@ Date: 17/03/2023
 import argparse
 import parser
 import recognition
-import tiles
 import palette
 import videoenc
 import shapes
@@ -272,7 +271,8 @@ if args.number_of_transformations is None or args.number_of_transformations > 0:
         if args.number_of_transformations is not None:
             print(f"Applying transformation {trans_cnt} of total {args.number_of_transformations}...", end='\r')
         else:
-            print(f"Applying transformation {trans_cnt}. Transformations are applied until the grid is sorted...", end='\r')
+            print(f"Applying transformation {trans_cnt}. Transformations are applied until the grid is sorted...",
+                  end='\r')
         swapped = tile_grid.apply_transformation_step(args.smaller_shape_dir,
                                                       args.lighter_background_dir,
                                                       args.lighter_shape_dir,

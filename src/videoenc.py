@@ -13,15 +13,16 @@ import os
 
 def imgs_to_video(save_path, frames_path, imgs, orig_height, orig_width, scale_factor=1, framerate=1):
     """
-    Converts an array of image into a video output
+    Converts an array of image into a video output.
 
-    :param frames_path: The path, where frames are saved
-    :param orig_width: The width of the original grid
-    :param orig_height: The height of the original grid
-    :param save_path: the path to save the video in
-    :param imgs: the array of images constituting the video
+    :param frames_path: The path, where frames are saved,
+    :param orig_width: The width of the original grid,
+    :param orig_height: The height of the original grid,
+    :param save_path: the path to save the video in,
+    :param imgs: the array of images constituting the video,
     :param scale_factor: a factor by which the resolution of the video is
-            enlarged or shrinked relative to the original input image
+            enlarged or shrinked relative to the original input image,
+    :param framerate: defines the framerate of the output video.
     """
 
     if len(imgs) > 0:

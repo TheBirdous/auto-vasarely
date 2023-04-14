@@ -24,7 +24,6 @@ def recognize_tiles(grid, num_of_tiles_on_rows):
 
     tile_grid = TileGrid()
     tile_num = 1
-    state = State.S0
     row = 1
     col = 1
     while True:

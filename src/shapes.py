@@ -7,9 +7,8 @@ Date: 19/03/2023
 """
 
 import copy
-from enum import Enum, auto
+from enum import Enum
 from alphabet import Alphabet
-import numpy as np
 
 
 class Shapes(Enum):

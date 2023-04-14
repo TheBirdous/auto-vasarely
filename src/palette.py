@@ -27,4 +27,3 @@ def img_to_palette(colored_img_path):
         prob_sum += probability
         colors_cummul.append((color, prob_sum))
     return colors_cummul
-
