@@ -45,19 +45,19 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="shapes.Shape.color">
 <span class="sig-name descname"><span class="pre">color</span></span><a class="headerlink" href="#shapes.Shape.color" title="Permalink to this definition">¶</a></dt>
-<dd><p>The color of a shape</p>
+<dd><p>The color of a shape.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="shapes.Shape.draw">
 <span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#shapes.Shape.draw" title="Permalink to this definition">¶</a></dt>
-<dd><p>Draws a grown shape into an output image</p>
+<dd><p>Draws a grown shape into an output image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> – The original input grid</p></li>
-<li><p><strong>out_img</strong> – The output image</p></li>
-<li><p><strong>start</strong> – Starting position for growth (last point in the fill_layers attribute of a tile)</p></li>
+<li><p><strong>grid</strong> – The original input grid,</p></li>
+<li><p><strong>out_img</strong> – The output image,</p></li>
+<li><p><strong>start</strong> – Starting position for growth (last point in the fill_layers attribute of a tile).</p></li>
 </ul>
 </dd>
 </dl>
@@ -66,13 +66,13 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="shapes.Shape.size">
 <span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#shapes.Shape.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>The size of a shape (number of layers for CONTOUR, number of steps for grown shapes)</p>
+<dd><p>The size of a shape (number of layers for CONTOUR, number of steps for grown shapes).</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="shapes.Shape.type">
 <span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#shapes.Shape.type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type of a shape</p>
+<dd><p>Type of a shape from the Shapes enum.</p>
 </dd></dl>
 
 </dd></dl>
@@ -130,8 +130,12 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="shapes.init_shape_fill_templates">
 <span class="sig-prename descclassname"><span class="pre">shapes.</span></span><span class="sig-name descname"><span class="pre">init_shape_fill_templates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile_grid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#shapes.init_shape_fill_templates" title="Permalink to this definition">¶</a></dt>
-<dd><p>Grows the shapes on a grid and initializes shape templates
-:param tile_grid: A tile grid used to extract max tile size</p>
+<dd><p>Grows the shapes on a grid and initializes shape templates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tile_grid</strong> – A tile grid used to extract max tile size.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -156,7 +160,6 @@
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="alphabet.html">alphabet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="auto_vasarely.html">auto_vasarely</a></li>
 <li class="toctree-l1"><a class="reference internal" href="palette.html">palette</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parser.html">parser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="recognition.html">recognition</a></li>

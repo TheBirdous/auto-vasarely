@@ -36,6 +36,10 @@ the documentation themselves,
 **[sphinx](https://www.sphinx-doc.org/en/master/index.html)**
 must be installed first.
 
+Then, in order to build an html version, enter the following command
+within the `doc/` directory:
+
+`make html`
 
 ## Example configurations
 
@@ -159,3 +163,10 @@ should be in the following interval: [0, 255]
 `-f FRAMERATE, --framerate FRAMERATE`
 
 Number of frames per second of the output video. Values should be in the following interval: [0, 60]
+
+### Jump over transformations
+
+ `-jt, --jump_transformations` 
+
+ If this flag is set, only the first and last state are returned on output. States in between are not saved as frames.
+ 

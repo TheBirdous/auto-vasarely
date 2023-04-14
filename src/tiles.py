@@ -41,6 +41,7 @@ class Tile:
     def add_fill_layer(self, fill_layer):
         """
         Adds a fill layer to the tile
+
         :param fill_layer: A fill layer filled during recognition
         """
 

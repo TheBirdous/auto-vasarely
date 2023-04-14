@@ -68,8 +68,9 @@ def _pick_neighbourhood_(shape_type, center_row, center_col):
 
 def init_shape_fill_templates(tile_grid):
     """
-    Grows the shapes on a grid and initializes shape templates
-    :param tile_grid: A tile grid used to extract max tile size
+    Grows the shapes on a grid and initializes shape templates.
+
+    :param tile_grid: A tile grid used to extract max tile size.
     """
 
     max_shape_size = 0
@@ -121,22 +122,21 @@ class Shape:
                  size=10,
                  type=Shapes.SQUARE_45DEG):
         self.color = color
-        """ The color of a shape """
+        """ The color of a shape. """
 
         self.size = size
-        """ The size of a shape (number of layers for CONTOUR, number of steps for grown shapes)"""
+        """ The size of a shape (number of layers for CONTOUR, number of steps for grown shapes)."""
 
         self.type = type
-        """ Type of a shape """
-
+        """ Type of a shape from the Shapes enum."""
 
     def draw(self, grid, out_img, start):
         """
-        Draws a grown shape into an output image
+        Draws a grown shape into an output image.
 
-        :param grid: The original input grid
-        :param out_img: The output image
-        :param start: Starting position for growth (last point in the fill_layers attribute of a tile)
+        :param grid: The original input grid,
+        :param out_img: The output image,
+        :param start: Starting position for growth (last point in the fill_layers attribute of a tile).
         """
 
         start_row, start_col = start

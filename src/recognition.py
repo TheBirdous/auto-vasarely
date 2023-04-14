@@ -16,10 +16,10 @@ def recognize_tiles(grid, num_of_tiles_on_rows):
     """
     Recognizes tiles from an input grid and returns them as a 2D array.
 
-    :param grid: is the input grid containing tiles
-    :param num_of_tiles_on_rows: is a list representing a pattern given
-        by the number of tiles on rows
-    :return: array of tiles
+    :param grid: is the input grid containing tiles,
+    :param num_of_tiles_on_rows: is a list representing a pattern given,
+        by the number of tiles on rows.
+    :return: array of tiles.
     """
 
     tile_grid = TileGrid()

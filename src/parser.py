@@ -18,11 +18,11 @@ def img_to_grid(img_path: str, threshold=170, interpolation=cv2.INTER_LINEAR):
     """ Returns a numpy array of numbers representing a padded grid ready for recognition
         from an input image.
 
-        :param interpolation: interpolation to be used while resizing, default is cv2.INTER_LINEAR
-        :param threshold: threshold to be used by the cv2.threshold() function
-        :param img_path: path to an image containing a suitable grid
+        :param interpolation: interpolation to be used while resizing, default is cv2.INTER_LINEAR,
+        :param threshold: threshold to be used by the cv2.threshold() function,
+        :param img_path: path to an image containing a suitable grid.
 
-        :return: padded grid ready for recognition
+        :return: padded grid ready for recognition.
     """
     img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
     height, width = img.shape
@@ -34,12 +34,12 @@ def img_to_grid(img_path: str, threshold=170, interpolation=cv2.INTER_LINEAR):
 
 def _resize_img_(img, interpolation):
     """
-    Resizes image if it's longest side is longer than 1000 pixels
+    Resizes image if it's longest side is longer than 1500 pixels.
 
-    :param img: the image to be resized
-    :param interpolation: interpolation to be used while resizing
+    :param img: the image to be resized,
+    :param interpolation: interpolation to be used while resizing.
 
-    :return: resized image
+    :return: resized image.
     """
     height, width = img.shape
     if max(width, height) > MAX_SIZE:

@@ -40,16 +40,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="parser._resize_img_">
 <span class="sig-prename descclassname"><span class="pre">parser.</span></span><span class="sig-name descname"><span class="pre">_resize_img_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#parser._resize_img_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resizes image if it’s longest side is longer than 1000 pixels</p>
+<dd><p>Resizes image if it’s longest side is longer than 1500 pixels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>img</strong> – the image to be resized</p></li>
-<li><p><strong>interpolation</strong> – interpolation to be used while resizing</p></li>
+<li><p><strong>img</strong> – the image to be resized,</p></li>
+<li><p><strong>interpolation</strong> – interpolation to be used while resizing.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>resized image</p>
+<dd class="field-even"><p>resized image.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -62,13 +62,13 @@ from an input image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>interpolation</strong> – interpolation to be used while resizing, default is cv2.INTER_LINEAR</p></li>
-<li><p><strong>threshold</strong> – threshold to be used by the cv2.threshold() function</p></li>
-<li><p><strong>img_path</strong> – path to an image containing a suitable grid</p></li>
+<li><p><strong>interpolation</strong> – interpolation to be used while resizing, default is cv2.INTER_LINEAR,</p></li>
+<li><p><strong>threshold</strong> – threshold to be used by the cv2.threshold() function,</p></li>
+<li><p><strong>img_path</strong> – path to an image containing a suitable grid.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>padded grid ready for recognition</p>
+<dd class="field-even"><p>padded grid ready for recognition.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -95,7 +95,6 @@ from an input image.</p>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="alphabet.html">alphabet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="auto_vasarely.html">auto_vasarely</a></li>
 <li class="toctree-l1"><a class="reference internal" href="palette.html">palette</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">parser</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#parser._resize_img_"><code class="docutils literal notranslate"><span class="pre">_resize_img_()</span></code></a></li>
