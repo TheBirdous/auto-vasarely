@@ -157,7 +157,7 @@ Celulární automaty (zkratkou často \emph{CA}) využívají v porovnání s č
 
 Samotné zpracování vstupního obrazu u celulárního automatu neprobíhá sekvenčně, buňku po buňce, ale prostřednictvím totálního přechodu, ve kterém se v jednom časovém bodě změní všechny buňky současně \cite{RozenbergGrzegorz1997HoFL}. Celulární automat využívá diskrétní čas, buňky se v časových krocích mění, přičemž s každým krokem je čas inkrementován. Změna stavů buněk je definována lokální tranzitivní funkcí, která se synchronně v jednom kroku aplikuje na všechny buňky. Funkce mění stav buňky v závislosti na nějakém lokálním okolí, skládajícím se z ostatních buněk, které nazýváme sousedy. Výsledkem přiřazení stavů do celého pole buněk je \emph{konfigurace} v určitém čase. Celulární automat můžeme definovat jako trojici, kterou tvoří pole buněk, množina povolených stavů, a tranzitivní funkce \cite{CATheory}.
 
-Dvou-dimenzionální celulární automaty v jednom kroku zpracovávají celý obraz. Jejich tranzitivní funkce pracují s dvěma elementárními druhy okolí, které se jmenují \emph{Moorovo} a~\emph{Von Neumannovo}. V případě okolí dvou-dimenzionálních CA mluvíme o poloměru $r$, který značí jeho velikost \cite{CATheory}. 
+Dvou-dimenzionální celulární automaty v jednom kroku zpracovávají celý obraz. Jejich tranzitivní funkce pracují s dvěma elementárními druhy okolí, které se jmenují \emph{Moorovo} a~\emph{Von Neumannovo} (obrázek \ref{fig:CAOkoli}). V případě okolí dvou-dimenzionálních CA mluvíme o~poloměru $r$, který značí jeho velikost \cite{CATheory}. 
 
 \begin{figure}[H]
     \centering
@@ -171,9 +171,9 @@ Umělecký potenciál můžeme u celulárních automatů najít v jejich vlastno
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\textwidth]{obrazky-figures/lifeWOdeath.png}
+    \includegraphics[width=0.35\textwidth]{obrazky-figures/lifeWOdeath.png}
     \hspace{0.1\textwidth}
-    \includegraphics[width=0.4\textwidth]{obrazky-figures/caGliders.png}
+    \includegraphics[width=0.35\textwidth]{obrazky-figures/caGliders.png}
     \caption{Obraz Life without Death autora Davida Griffeatha, pro jehož tvorbu bylo upraveno pravidlo automatu Life (vpravo). Obraz Gliders in CA with Memory vytvořen Genarem J. Martinezem, využívající kluzáků (gliders) z automatu Life (vlevo) \cite{CAArt}.}
     \label{fig:caUmeni}
 \end{figure}
@@ -182,9 +182,9 @@ Generativní a transformativní vlastnosti celulárních automatů využili ve s
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\textwidth]{obrazky-figures/GazoKolaz.jpg}
+    \includegraphics[width=0.35\textwidth]{obrazky-figures/GazoKolaz.jpg}
     \hspace{0.1\textwidth}
-    \includegraphics[width=0.4\textwidth]{obrazky-figures/ZlevorovaKolaz.jpg}
+    \includegraphics[width=0.35\textwidth]{obrazky-figures/ZlevorovaKolaz.jpg}
     \caption{Koláž autoportrétu Vincenta van Gogha od Mária Gaža (vlevo) \cite{GazoBak} a koláž propagandistického plakátu Martiny Zlevorové (vpravo) \cite{ZlevorovaBak}.}
     \label{fig:CAKolaze}
 \end{figure}
@@ -382,14 +382,14 @@ Vnitřní tvary dlaždic jsou vykresleny pomocí jednoduchého celulárního aut
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{obrazky-figures/VnitrniTvar.pdf}
+    \includegraphics[width=\textwidth]{obrazky-figures/VnitrniTvar.pdf}
     \caption{Podporované druhy okolí automatu produkujícího výplňové tvary dlaždic}
     \label{fig:VnitrniTvar}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{obrazky-figures/RustTvaru.pdf}
+    \includegraphics[width=\textwidth]{obrazky-figures/RustTvaru.pdf}
     \caption{Příklad průběhu růstu tvaru na trojúhelníkovém okolí}
     \label{fig:RustTvaru}
 \end{figure}
@@ -431,7 +431,7 @@ Aplikace je z procedurální stránky navržena dle obrázku \ref{fig:Structure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{obrazky-figures/StrukturaAplikace.pdf}
+    \includegraphics[width=0.9\textwidth]{obrazky-figures/StrukturaAplikace.pdf}
     \caption{Struktura aplikace z procedurálního pohledu}
     \label{fig:Structure}
 \end{figure}
@@ -592,7 +592,7 @@ Implementace konverze obrázku na video se nachází v modulu \verb|videoenc.py|
 
 Program, který reprezentuje praktickou část této práce, na výstupu vrací sady obrazů, které společně tvoří video. Vzhledem k tomu, že jsou výstupy aplikace potenciálně hodnotné převážně pro jejich estetický aspekt a pro jejich schopnost kreativně vizualizovat činnost navržených automatů, je není vhodné testovat primárně pomocí formálních metrik. Tato kapitola je koncipována jako názorná ukázka výstupů aplikace. Jejím cílem je předvést možné výstupy v situacích, kdy aplikaci poskytneme validní mřížku, kterou jsme definovali v sekci \ref{section:recogTheory}, a taktéž znázornit chování aplikace v případech, kdy se na vstupu nachází mřížka s vadami. Výstupy stručně zhodnotíme, a popíšeme nastavení programu, při kterém vznikly. 
 
-Testování proběhlo na operačním systému Windows 10 s nástroji, uvedenými v sekci \ref{impl:utils}. Jednotlivé výstupy jsou zároveň dostupné ke shlédnutí na odkazu, který se nachází poznámce pod čarou.\footnote{Video demonstrace výstupů aplikace: \\ \url{https://youtube.com/playlist?list=PLmqY7KSySjDDjWEJPChE_rpowOe25cOXV}}
+Testování proběhlo na operačním systému Windows 10 s nástroji, uvedenými v sekci \ref{impl:utils}. Jednotlivé výstupy jsou zároveň dostupné ke shlédnutí na odkazu, který se nachází v~poznámce pod čarou.\footnote{Video demonstrace výstupů aplikace: \\ \url{https://youtube.com/playlist?list=PLmqY7KSySjDDjWEJPChE_rpowOe25cOXV}}
 
 \section{Vstupní mřížka s artefakty}
 
@@ -622,7 +622,7 @@ V této sekci se nachází čtyři ukázky výstupů, které byly vygenerovány 
 
 Ve výstupu, ilustrovaném na obrázku \ref{fig:tilted_squares}, nejsou hranice dlaždic vymazány, ale obarveny barvou středového čtverce obrazu Cosca II \cite{cosca2}, jehož autorem je Victor Vasarely. Původní konfigurace je barevně i tvarově náhodná, s dalšími kroky se však vnitřní tvary a barvy třídí. V třicáté konfiguraci můžeme pozorovat opačný gradient barev pozadí a vnitřních tvarů. Kosočtverce jsou posunuty doleva a čtverce doprava. Na místech, kde se potkává tmavý vnitřní tvar se světlým pozadím můžeme pozorovat souvislost s Vasarelyho barevnou paletou. Nakloněné čtverce pozadí působí dojmem, že se naklání celý obraz. Optická iluze Vasarelyho je tak nahrazena iluzí mřížky, na kterou byly jeho barvy přeneseny.
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{obrazky-figures/tilted_squares.pdf}
     \caption{Zachování hranic u mřížky s nakloněnými čtverci. Barevná paleta je extrahována z obrazu Cosca II Victora Vasarelyho. Hranice jsou obarveny odstínem středového čtverce Vasarelyho obrazu. \cite{cosca2}. }
@@ -631,9 +631,9 @@ Ve výstupu, ilustrovaném na obrázku \ref{fig:tilted_squares}, nejsou hranice 
 
 \subsection*{Použití všech vnitřních tvarů a transformací}
 
-Výstupní obrazy v této sekci, znázorněny diagramem \ref{fig:hexagons}, tvoří mozaiku \linebreak z post-impresionistického obrazu Tahitská krajina od Paula Gauguina  \cite{tahiti}. Transformace zde s obrazem korespondují, jelikož byly vybrány tak, aby ve třicáté konfiguraci alespoň trochu odpovídaly barevnému rozložení Gaughinova obrazu. Světlé pozadí se posouvalo nahoru a doleva, aby bylo v rohu dosaženo virtuálního zdroje světla. Uprostřed se míchají různé barvy a odstíny, a dole můžeme na rozdíl od původního obrazu vidět tmavou bažinu. Výstupy v tomto případě obsahují všechny tvary, které jsou s časem tříděny. 
+Výstupní obrazy v této sekci, znázorněny diagramem \ref{fig:hexagons}, tvoří mozaiku \linebreak z post-impresionistického obrazu Tahitská krajina od Paula Gauguina  \cite{tahiti}. Transformace zde s obrazem korespondují, jelikož byly vybrány tak, aby ve třicáté konfiguraci alespoň trochu odpovídaly barevnému rozložení Gaughinova obrazu. Světlé pozadí se posouvalo nahoru a doleva, aby bylo v rohu dosaženo virtuálního zdroje světla. Uprostřed se míchají různé barvy a odstíny, a dole můžeme na rozdíl od původního obrazu vidět tmavou plochu. Výstupy v tomto případě obsahují všechny tvary, které jsou s časem tříděny. 
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{obrazky-figures/hexagons.pdf}
     \caption{Využití všech vnitřních tvarů a transformací na šestiúhelníkovém poli. Obarvení proběhlo na základě obrazu Tahitská krajína od Paula Gaughina \cite{tahiti}. }
@@ -644,7 +644,7 @@ Výstupní obrazy v této sekci, znázorněny diagramem \ref{fig:hexagons}, tvo�
 
 Vstupní mřížka je v této sekci složena z krychlí v dvou-dimenzionální projekci a sama o~sobě vytváří uniformní iluzi hloubky. Jako barevná paleta do mřížky vstupuje suprematistický obraz Kazimira Maleviče \cite{suprematism} s jasně rozlišenými barvami, které jsou naneseny na jednoduché geometrické objekty. V první konfiguraci narušuje spojení mřížky a palety jednu perspektivu, z jaké jsme mohli vnímat původní mřížku. Stejné barvy jsou umístěny na jiné stěny krychle a rozbíjí tak přirozené stínování. Některé krychle se jeví jako vystupující z~obrazu, a některé prostupují dovnitř. V třicáté konfiguraci se trojrozměrný dojem v horní části obrazu úplně rozbíjí díky splývajícím barvám pozadí, a dole přetrvává jen velmi lehce. Vstupy a výstupy jsou znázorněny na obrázku \ref{fig:cubes}.
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{obrazky-figures/cubes.pdf}
     \caption{Plastický efekt na mřížce s dlaždicemi ve tvaru krychlí obarvené paletou suprematistického obrazu Kazimira Maleviče \cite{suprematism}. }
@@ -654,9 +654,10 @@ Vstupní mřížka je v této sekci složena z krychlí v dvou-dimenzionální p
 \subsection*{Chybně extrahovaná paleta}
 
 Poslední ukázka výstupu, kterou lze vidět na diagramu \ref{fig:square_tiles}, se dle mého názoru nezdařila. Jako mřížka byla použita plocha rozdělená na čtverce o čtyřech sekcích s malými čtverci uprostřed. Paleta byla extrahována z abstraktního obrazu Vasilije Kandinského \cite{yellow}, který obsahuje barevné plochy na žlutém pozadí. Ve výstupním obrazu se však skoro žádná žlutá nenachází, dominuje mu naopak ostře tyrkysová barva, která se v abstraktním díle Kandinského skoro nevyskytuje. Přičinou špatné extrakce by mohl být fakt, že při přiblížení figuruje ve zdánlivě jednolitém žlutém pozadí několik odstínů, které se značně odlišují. Je možné, že došlo zrovna k takové kombinaci odstínů, které byly rozmístěny do shluků k~jiným barvám, než ke žluté. Výstup zároveň ilustruje úskalí v podobě zubatých hran, které plynou z nízkého rozlišení vstupní mřížky. Tento příklad ukazuje, že je někdy potřeba, aby uživatel pro dosažení kýženého výsledku vytvořil z obrazu paletu manuálně, a až následně ji dal aplikaci k extrakci.
-\begin{figure}[H]
+
+\begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{obrazky-figures/square_tiles.pdf}
+    \includegraphics[width=\textwidth]{obrazky-figures/square_tiles.pdf}
     \caption{Ukázka chybně extrahované palety z obrazu Vasilije Kandinského \cite{yellow}. Malé rozlišení vstupní mřížky tvoří na výstupním obrazu zubaté hrany. }
     \label{fig:square_tiles}
 \end{figure}
