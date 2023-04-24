@@ -11,9 +11,25 @@ filled input grid. The grid is filled with colors according to the chosen
 color palette, and with inner shapes depending on the user's choice. 
 Each state of the filled grid is saved into a separate folder.
 
+## Repository Structure
+
+- `doc/` contains documentation of the application.
+- `excel/` contains presentation materials for Excel@FIT 2023
+- `profiling/` contains statistical data regarding execution time of the application.
+- `report/` contains source files, from which the thesis/report can be generated.
+- `resources/` contains inputs and outputs from early testing.
+- `src/` contains source files of the application.
+- `test/` contains tests.
+- `test_report/` contains tests, which showcase final outputs of the application.
+- `LICENSE` is a file containing license info regarding the correct usage and
+distribution of this application.
+- `README.md` contains general information regarding this repository, and
+a usage guide for the application.
+- `xdohna48.pdf` contains the compiled thesis/report.
+
 ## Prerequisities
 
-In this section are included required libraries, as well as the version of a
+In this section are included required libraries, as well as a version of the 
 Python interpreter necessary to run this software.
 
 ### Interpreter
@@ -69,16 +85,16 @@ The following usage guide assumes the program is run from the src folder.
 `[-f FRAMERATE]`
 
 ## Positional arguments:
-### grid_path             
+### Grid path             
 Path to the input grid represented by an image (.jpg or .png recommended)
-### row_sequence          
+### Row sequence          
 Describes the pattern created by changing number of tiles on rows of the input grid. Row lengths are separated by a "-" (hyphen) character in the row_sequence
 argument, pattern of lengths a, b, c would be written as a-b-c Example: a grid with 7 tiles on a row would have 7 as a sequence, whereas a grid with a pattern
 of 5 tiles per row followed by 2 tiles would be represented by a sequence 5-2
-### background_colors_path
+### Background colors path
 Path to an image containing colors to be extracted into a palette. If the optional argument shape_colors_path is not specified, the colors from this argument
 are used for both background and shapes. 
-### output_path           
+### Output path           
 Path represents a folder into which the output is saved.
 
 ## Options
