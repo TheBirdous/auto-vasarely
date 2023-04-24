@@ -23,7 +23,7 @@ Hlavní inspirace pro tuto práci jsem nalezl zejména v sériovém umění maď
 
 Návrh aplikace navazuje na Vasarelyho hru s permutacemi, která je uvedena v citaci výše. Uživatel může aplikaci několika způsoby omezovat, dostává prostor experimentovat s různými vstupy, a konečně může pozorovat, jak se jeho výběr barev a tvarů projevuje v~kombinaci se vstupní mřížkou na snímcích, vytvořených aplikací. 
 
-Jiný zdroj inspirace pochází z bakalářských prací Mária Gaža a Martiny Zlevorové, kteří se věnovali podobnému tématu ale na rozdíl od této práce se zaměřili na kompozici textu. Čerpal jsem zejména z jejich využití celulárních automatů pro řazení a rozprostření písmen po obrazu. Celulární automat byl v této práci navržen tak, aby místo textu dokázal modifikovat obsah a pořadí dlaždic v mřížce.
+Jiný zdroj inspirace pochází z bakalářských prací Mária Gaža a Martiny Zlevorové, kteří se věnovali podobnému tématu, ale na rozdíl od této práce se zaměřili na kompozici textu. Čerpal jsem zejména z jejich využití celulárních automatů pro řazení a rozprostření písmen po obrazu. Celulární automat byl v této práci navržen tak, aby místo textu dokázal modifikovat obsah a pořadí dlaždic v mřížce.
 
 V \hyperref[current]{následující kapitole} se věnuji zejména existujícím formálním modelům, které bylo třeba nastudovat pro rozpoznání a transformaci vstupní mřížky. Čtenář, který není s dvou-dimenzionálními automaty obeznámen, se v této kapitole dozví klíčové pojmy a definice, potřebné pro pochopení návrhu nových modelů. Okrajově se zde věnuji použití formálních modelů v umění a zasazuji práci do kontextu interdisciplinárního prostoru mezi uměním a~informatikou, ve kterém vznikala. 
 
@@ -222,7 +222,7 @@ Cílem této sekce je navrhnout sérii čtyřcestných automatů, které budou �
 
 \subsection*{Princip rozpoznání}
 
-Vstupní mřížka na vstupu není vyplněná. Rozpoznání provází průběžná výplň dlaždic, na~které automaty při průchodu narazí.
+Mřížka na vstupu není vyplněná. Rozpoznání provází průběžná výplň dlaždic, na~které automaty při průchodu narazí.
 
 Počátek rozpoznání se nachází v levém horním rohu obrázku, ze kterého je spuštěn automat A1, definovaný v sekci \ref{secA1}, s cílem najít nevyplněný znak uvnitř dlaždice, nacházející se v jejím nejvyšším bodě. V případě, že je nalezen, dojde ke spuštění automatu A2 (\ref{secA2}) a~následně A3 (\ref{secA3}), s cílem obejít konturu dlaždice zevnitř. Dráha opsaná automaty A2 a~A3 se aplikuje formou výplně na prázdné znaky. Po aplikování výplně navazuje svou činností automat A4 (\ref{secA4}), který najde počátek další vrstvy výplně. Postupně jsou přidávány do dlaždice další vrstvy, dokud se zcela nezaplní. Tento postup je proveden na všech dlaždicích, dokud není dosaženo konce mřížky. Proces výplně dlaždice je ilustrován na obrázku \ref{fig:prubehVyplnePOpis}.
 
@@ -631,7 +631,7 @@ Ve výstupu, ilustrovaném na obrázku \ref{fig:tilted_squares}, nejsou hranice 
 
 \subsection*{Použití všech vnitřních tvarů a transformací}
 
-Výstupní obrazy v této sekci, znázorněny diagramem \ref{fig:hexagons}, tvoří mozaiku \linebreak z post-impresionistického obrazu Tahitská krajina od Paula Gaughina  \cite{tahiti}. Transformace zde s obrazem korespondují, jelikož byly vybrány tak, aby ve třicáté konfiguraci alespoň trochu odpovídaly barevnému rozložení Gaughinova obrazu. Světlé pozadí se posouvalo nahoru a doleva, aby bylo v rohu dosaženo virtuálního zdroje světla. Uprostřed se míchají různé barvy a odstíny, a dole můžeme na rozdíl od původního obrazu vidět tmavou bažinu. Výstupy v tomto případě obsahují všechny tvary, které jsou s časem tříděny. 
+Výstupní obrazy v této sekci, znázorněny diagramem \ref{fig:hexagons}, tvoří mozaiku \linebreak z post-impresionistického obrazu Tahitská krajina od Paula Gauguina  \cite{tahiti}. Transformace zde s obrazem korespondují, jelikož byly vybrány tak, aby ve třicáté konfiguraci alespoň trochu odpovídaly barevnému rozložení Gaughinova obrazu. Světlé pozadí se posouvalo nahoru a doleva, aby bylo v rohu dosaženo virtuálního zdroje světla. Uprostřed se míchají různé barvy a odstíny, a dole můžeme na rozdíl od původního obrazu vidět tmavou bažinu. Výstupy v tomto případě obsahují všechny tvary, které jsou s časem tříděny. 
 
 \begin{figure}[H]
     \centering
